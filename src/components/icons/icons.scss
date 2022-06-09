@@ -1,0 +1,32 @@
+@import '../../index.scss';
+
+.icons-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+  gap: 1.5rem;
+
+  .icons {
+    @extend %flex-center;
+    gap: 1.5rem;
+    padding: 2rem o;
+
+    svg {
+      font-size: 3.5rem;
+      color: $green;
+    }
+
+    h3 {
+      font-size: 2.2rem;
+      color: $black;
+      padding-bottom: 0.5rem;
+    }
+
+    p {
+      font-size: 1.4rem;
+      color: $light-color;
+    }
+
+  }
+
+
+}
