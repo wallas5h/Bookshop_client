@@ -1,0 +1,77 @@
+@import '../../index.scss';
+
+.box {
+  width: 25rem;
+  margin: 2rem 0;
+  position: relative;
+  overflow: hidden;
+  border: $border;
+  text-align: center;
+
+  &:hover {
+    border: $border-hover;
+
+    .icons {
+      transform: translateY(0)
+    }
+
+    .image {
+      transform: translateY(6rem);
+    }
+  }
+
+  .image {
+    padding: 1rem;
+    background: linear-gradient(15deg, #eee 30%, #fff 30.1%);
+
+    img {
+      height: 25rem;
+    }
+  }
+
+  .icons {
+    padding-bottom: $border-hover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #fff;
+    width: 100%;
+    z-index: 1;
+    transform: translateY(-100%);
+
+    a {
+      color: $black;
+      font-size: 2.2rem;
+      margin: 1.5rem;
+      padding: 1.3rem 1.5rem;
+
+      &:hover {
+        background-color: $green;
+        color: #fff;
+      }
+    }
+  }
+
+  .content {
+    background-color: #eee;
+    padding: 1.5rem;
+
+    h3 {
+      font-size: 2rem;
+      color: $black;
+    }
+
+    .price {
+      font-size: 2.2rem;
+      color: $black;
+      padding-top: 1rem;
+
+      span {
+        font-size: 1.5rem;
+        color: $light-color;
+        text-decoration: line-through;
+      }
+    }
+  }
+
+}

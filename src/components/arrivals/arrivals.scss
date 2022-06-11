@@ -1,0 +1,42 @@
+@import '../../index.scss';
+
+.arrivals-slider {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 2rem 1rem;
+  border: $border;
+  margin: 1rem 0;
+
+  &:hover {
+    border: $border-hover;
+  }
+
+  .image img {
+    height: 15rem;
+  }
+
+  .content {
+    h3 {
+      font-size: 2rem;
+      color: $black;
+    }
+
+    .price {
+      font-size: 2.2rem;
+      color: $black;
+      padding-bottom: 0.5rem;
+
+      span {
+        font-size: 1.5rem;
+        color: $light-color;
+        text-decoration: line-through;
+      }
+    }
+
+    .stars {
+      font-size: 1.5rem;
+      color: $green;
+    }
+  }
+}

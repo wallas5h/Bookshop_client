@@ -1,4 +1,4 @@
-import { Home, Icons } from '../../components';
+import { Blog, Deal, Featured, Home, Icons, Newsletter, Review } from '../../components';
 
 
 export const HomeContainer = () => {
@@ -8,6 +8,12 @@ export const HomeContainer = () => {
     <>
       <Home />
       <Icons />
+      <Featured />
+      <Newsletter />
+      {/* <Arrivals /> */}
+      <Deal />
+      <Review />
+      <Blog />
 
     </>
   )

@@ -1,12 +1,17 @@
 @import '../../index.scss';
 
 .icons-container {
+  margin-top: 4rem;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
   gap: 1.5rem;
 
   .icons {
-    @extend %flex-center;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-left: 6rem;
+    // margin: 0 auto;
     gap: 1.5rem;
     padding: 2rem o;
 
