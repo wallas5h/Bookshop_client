@@ -19,8 +19,8 @@ export const Header_1 = () => {
       <div className="icons">
         <div id="search-btn" onClick={() => setToggleActive(prev => !prev)} ><FaSearch /></div>
         <a href="/wishlist" ><FaHeart /></a>
-        <a href="/cart/resume" ><FaCartArrowDown /></a>
-        <div id="login-btn"><FaUser /></div>
+        <a href="/cart" ><FaCartArrowDown /></a>
+        <a href="/login"  ><FaUser /></a>
       </div>
     </div>
 

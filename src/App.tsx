@@ -1,21 +1,23 @@
-import React from 'react';
 import { Route, Routes } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
-import { CardResume, Footer, Wishlist } from './components';
-import { Header } from './containers/header/Header';
+import { CartContainer, Login, Register, RemindPassword, WishlistContainer } from './components';
 import { HomeContainer } from './containers/home/HomeContainer';
 
 
 function App() {
   return (
     <div className="App">
-      <Header />
       <Routes>
         <Route path='/' element={<HomeContainer />} />
-        <Route path='/wishlist' element={<Wishlist />} />
-        <Route path='/cart/resume' element={<CardResume />} />
+        <Route path='/wishlist' element={<WishlistContainer />} />
+        <Route path='/cart' element={<CartContainer />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/login/remind' element={<RemindPassword />} />
+        <Route path='/register' element={<Register />} />
       </Routes>
-      <Footer />
+      <ToastContainer />
     </div>
   );
 }

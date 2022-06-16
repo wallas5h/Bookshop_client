@@ -1,4 +1,5 @@
-import { Blog, Deal, Featured, Home, Icons, Newsletter, Review } from '../../components';
+import { Blog, Deal, Featured, Footer, Home, Icons, Newsletter, Review } from '../../components';
+import { Header } from '../header/Header';
 
 
 export const HomeContainer = () => {
@@ -6,15 +7,15 @@ export const HomeContainer = () => {
 
   return (
     <>
+      <Header />
       <Home />
       <Icons />
       <Featured />
       <Newsletter />
-      {/* <Arrivals /> */}
       <Deal />
       <Review />
       <Blog />
-
+      <Footer />
     </>
   )
 }
