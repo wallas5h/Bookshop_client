@@ -1,0 +1,250 @@
+@import '../../index.scss';
+
+.heading {
+  h1 {
+    font-size: 4rem;
+    text-align: left;
+    margin: 2rem 0;
+    text-transform: none;
+  }
+}
+
+.container-shopping {
+  display: grid;
+  grid-template-columns: 1fr 250px;
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
+    "list checkout"
+    "list checkout"
+  ;
+
+  @media (max-width:800px) {
+    grid-template-areas:
+      "checkout checkout"
+      "list list"
+    ;
+  }
+
+  .shopping-lists-group {
+    grid-area: list;
+    display: flex;
+    flex-direction: column;
+
+    .shopping-list--cart {
+
+      p {
+        display: flex;
+        font-size: 2rem;
+        margin: 2rem 0;
+        text-align: left;
+
+        span {
+          text-transform: normal;
+        }
+      }
+
+      .cart-one {
+        display: grid;
+        grid-template-columns: auto minmax(200px, 300px) auto auto;
+        grid-template-rows: repeat(3, auto);
+        grid-template-areas:
+          " img info count price"
+          " img info count price"
+          " action action count price"
+        ;
+
+        @media (max-width: 1150px) {
+          grid-template-columns: auto 1fr auto auto;
+          grid-template-areas:
+            " img info info price"
+            " img count count price"
+            " action action action price"
+          ;
+        }
+
+        border-bottom: 1px solid #555;
+        padding-bottom: 1rem;
+        margin: 2rem 0;
+
+        img {
+          grid-area: img;
+          height: 15rem;
+          margin-right: 2rem;
+
+          @media (max-width:850px) {
+            height: 15rem;
+          }
+        }
+
+        .book-short-info {
+          grid-area: info;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+
+          h4 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #000;
+          }
+
+          span {
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: #333;
+          }
+        }
+
+        .book-count {
+          margin: 0 3rem;
+
+          @media (max-width:1150px) {
+            margin: 0;
+          }
+
+          h4 {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+
+            @media (max-width:1150px) {
+              display: none;
+            }
+          }
+
+          div {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+
+            @media (max-width:1150px) {
+              text-align: left;
+            }
+          }
+
+          &--controller {
+            display: inline-block;
+            padding: 1rem;
+            font-size: 2rem;
+            border: 0.5px solid #777;
+            border-radius: 5px;
+            cursor: pointer;
+          }
+
+          &--result {
+            display: inline-block;
+            width: 2rem;
+            height: 2rem;
+            margin: 0 1rem;
+            text-align: center;
+            line-height: 2rem;
+            font-size: 2rem;
+            color: $green;
+          }
+        }
+
+
+        .book-price {
+          grid-area: price;
+
+          display: flex;
+          flex-direction: column;
+          margin-right: 4rem;
+          align-items: center;
+          // justify-content: center;
+
+          @media (max-width: 850px) {
+            align-items: start;
+          }
+
+          div {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+          }
+
+          &-current {
+            font-size: 2rem;
+            font-weight: 400;
+            color: $green;
+          }
+
+          &-old {
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: #777;
+            text-decoration: line-through;
+          }
+        }
+
+
+        .book-action {
+          grid-area: action;
+          display: flex;
+          flex-direction: row;
+          justify-content: flex-start;
+          margin-top: 1rem;
+          // margin: 0 4rem;
+          margin-right: 4rem;
+
+
+          span {
+            margin-right: 2rem;
+            padding: 1rem 0;
+            font-size: 1.5rem;
+            font-weight: 400;
+            text-transform: initial;
+            color: darken($green , 10%);
+            cursor: pointer;
+
+            &:hover {
+              color: $green;
+            }
+          }
+
+          @media (max-width: 1024px) {
+            flex-basis: 100%;
+
+          }
+        }
+      }
+    }
+
+    .shopping-list--cart--wishlisted {
+      @extend .shopping-list--cart;
+
+
+    }
+  }
+
+  .shopping-checkout--container {
+    grid-area: checkout;
+    min-width: 260px;
+    margin-bottom: 4rem;
+
+    .shopping-checkout-box {
+      text-align: left;
+    }
+
+    h4 {
+      display: inline-block;
+      margin-right: 2rem;
+      font-size: 3rem;
+      color: #777;
+    }
+
+    p {
+      display: inline-block;
+      font-size: 4rem;
+      font-weight: 800;
+
+    }
+
+    .btn-block {
+      display: inline-block;
+      width: 100%;
+      padding: 1rem;
+    }
+
+  }
+
+}

@@ -1,0 +1,146 @@
+@import '../../index.scss';
+
+.heading {
+  h1 {
+    font-size: 4rem;
+    text-align: left;
+    margin: 2rem 0;
+    text-transform: none;
+  }
+}
+
+.container-wishlist {
+
+  .wishlist-lists-group {
+
+    display: flex;
+    flex-direction: column;
+
+    .wishlist-list--cart {
+
+      p {
+        display: flex;
+        font-size: 2rem;
+        margin: 2rem 0;
+        text-align: left;
+
+        span {
+          text-transform: normal;
+        }
+      }
+
+      .cart-one {
+        display: grid;
+        grid-template-columns: auto minmax(200px, 400px) auto auto;
+        grid-template-rows: repeat(3, auto);
+        grid-template-areas:
+          " img info action price"
+          " img info action price"
+          " img info action price"
+        ;
+
+        @media (max-width: 600px) {
+          grid-template-columns: auto 1fr auto;
+          grid-template-areas:
+            " img info  info"
+            " img price price"
+            " action action action"
+          ;
+        }
+
+        border-bottom: 1px solid #555;
+        padding-bottom: 1rem;
+        margin: 2rem 0;
+
+        img {
+          grid-area: img;
+          height: 15rem;
+          margin-right: 2rem;
+
+          @media (max-width:850px) {
+            height: 15rem;
+          }
+        }
+
+        .book-short-info {
+          grid-area: info;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+
+          h4 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #000;
+          }
+
+          span {
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: #333;
+          }
+        }
+
+
+        .book-price {
+          grid-area: price;
+
+          display: flex;
+          flex-direction: column;
+          margin-right: 4rem;
+          align-items: center;
+          // justify-content: center;
+
+          @media (max-width: 850px) {
+            align-items: start;
+          }
+
+          @media (max-width: 600px) {
+            flex-direction: row;
+          }
+
+          div {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            margin-right: 1rem;
+          }
+
+          &-current {
+            margin-right: 1rem;
+            font-size: 2rem;
+            font-weight: 400;
+            color: $green;
+          }
+
+          &-old {
+            font-size: 2rem;
+            font-weight: 400;
+            color: #777;
+            text-decoration: line-through;
+          }
+        }
+
+
+        .book-action {
+          grid-area: action;
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-start;
+          margin-top: 1rem;
+          // margin: 0 4rem;
+          margin-right: 4rem;
+
+          @media (max-width:600px) {
+            flex-direction: row;
+            justify-content: space-evenly;
+          }
+
+        }
+      }
+    }
+
+  }
+
+
+
+}
