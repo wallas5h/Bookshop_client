@@ -16,5 +16,6 @@ export { Newsletter } from './newletter/Newsletter';
 export { Register } from './register/Register';
 export { RemindPassword } from './remind/RemindPassword';
 export { Review } from './review/Review';
+export { SearchContainer } from './search/SearchContainer';
 export { WishlistContainer } from './wishlist/WishlistContainer';
 

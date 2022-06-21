@@ -1,9 +1,11 @@
 @import '../../index.scss';
 
-.heading {
-  text-align: center;
+.search-result {
+  font-size: 3rem;
+  padding: .5rem;
+  color: $black;
   margin-bottom: 2rem;
-  position: relative;
+
 
 
   span {
@@ -11,11 +13,16 @@
     padding: .5rem 2rem;
     color: $black;
     background-color: #fff;
-    border: $border;
+
   }
 }
 
-.box {
+.search-result__container {
+  @extend %flex-center;
+  flex-wrap: wrap;
+}
+
+.box-search-item {
   width: 25rem;
   margin: 2rem 0;
   position: relative;
