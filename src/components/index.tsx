@@ -1,5 +1,7 @@
 export { Arrivals } from './arrivals/Arrivals';
 export { Blog } from './blog/Blog';
+export { AddBookContainer } from './book/AddBookContainer';
+export { BookContainer } from './book/BookContainer';
 export { Bottom_navbar } from './bottom_navbar/Bottom_navbar';
 export { Box } from './box/Box';
 export { CardResume } from './cart/CardResume';

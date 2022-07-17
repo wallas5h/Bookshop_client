@@ -1,9 +1,20 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { FaSignInAlt } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { UserLoginRes } from 'types';
+import { apiUrl } from '../../config/api';
+import { changeUserId, changeUserLogStatus, changeUserName } from "../../features/auth/authSlice";
+import { RootState } from "../../features/store";
+import { messagesValidation as messages, singinFunctionFormValidation as formValidation } from "../../utils/logs.utils";
 import './login.scss';
 
 export const Login = () => {
+
+  const dispatch = useDispatch();
+  const { isUserLogged } = useSelector((store: RootState) => store.auth);
 
   const [formData, setFormData] = useState({
     email: '',
@@ -11,6 +22,7 @@ export const Login = () => {
   });
 
   const { email, password, } = formData;
+  const navigate = useNavigate();
 
   const change = (e: ChangeEvent<HTMLInputElement>) => {
     setFormData(prev => ({
@@ -20,15 +32,67 @@ export const Login = () => {
 
   }
 
-  const formSubmit = (e: FormEvent) => {
+  const formSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
+    const validation = formValidation(formData);
+
+    if (!validation.email) {
+      toast.error(messages.email__incorect)
+    }
+    const userData = {
+      email, password
+    }
+
+    try {
+      const res = await fetch(`${apiUrl}/users/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(userData)
+      })
+
+      // @TODO zwalidowac res.json
+
+      const data: UserLoginRes = await res.json();
+
+      if (data.message) {
+        toast.info(data.message)
+      }
+      if (res.ok) {
+        // debugger;
+        // console.log(data._id, data.name)
+        dispatch(changeUserLogStatus(true));
+        localStorage.setItem('isUserLogged', JSON.stringify(true));
+        localStorage.setItem('token', JSON.stringify(data.token));
+
+        // console.log(isUserLogged)
+
+        if (data._id) {
+          dispatch(changeUserId(data._id));
+          localStorage.setItem('userId', JSON.stringify(data._id));
+        }
+        if (data.name) {
+          dispatch(changeUserName(data.name));
+          localStorage.setItem('userName', JSON.stringify(data.name));
+        }
+
+        navigate('/');
+      }
 
 
-    setFormData({
-      email: '',
-      password: '',
-    })
+    }
+
+    finally {
+      // changeLoadingLogData(false);
+      setFormData({
+        email: '',
+        password: '',
+      })
+
+    }
+
   }
 
 

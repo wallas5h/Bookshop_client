@@ -6,6 +6,11 @@ import { FaUserAlt } from "react-icons/fa";
 
 import { AiOutlineClose } from 'react-icons/ai';
 import { toast } from "react-toastify";
+import { apiUrl } from '../../config/api';
+
+import { useNavigate } from 'react-router-dom';
+import { UserRegisterRes } from 'types';
+import { messagesValidation as messages, singupFunctionFormValidation as formValidation } from "../../utils/logs.utils";
 
 
 
@@ -15,12 +20,21 @@ export const Register = () => {
     name: '',
     email: '',
     password: '',
-    password2: ''
+    password2: '',
+    terms: false
   });
 
-  const { name, email, password, password2 } = formData;
+  const { name, email, password, password2, terms } = formData;
 
-  // const navigate = useNavigate();
+  const [validationErrors, setValidationErrors] = useState({
+    name: false,
+    email: false,
+    password: false,
+    password2: false,
+    terms: false
+  })
+
+  const navigate = useNavigate();
   // const dispatch = useDispatch();
 
   // const { user, isLoading, isError, isSuccess, message } = useSelector(
@@ -28,36 +42,75 @@ export const Register = () => {
   // )
 
   const change = (e: ChangeEvent<HTMLInputElement>) => {
-    setFormData(prev => ({
-      ...prev,
-      [e.target.name]: e.target.value
-    }))
-
+    if (e.target.type === 'checkbox') {
+      setFormData(prev => ({
+        ...prev,
+        [e.target.name]: e.target.checked
+      }))
+    } else {
+      setFormData(prev => ({
+        ...prev,
+        [e.target.name]: e.target.value
+      }))
+    }
   }
 
-  const formSubmit = (e: FormEvent) => {
+  const formSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-    if (password !== password2) {
-      toast.error('Password do not match')
-    }
-    else {
+    const validation = formValidation(formData);
 
-      const userData = {
-        name, email, password
+    if (!validation.correct) {
+      !validation.name && toast.error(messages.name__incorect)
+      !validation.email && toast.error(messages.email__incorect)
+      !validation.password && toast.error(messages.password__incorect)
+      !validation.password2 && toast.error(messages.password2__incorect)
+      !validation.terms && toast.error(messages.terms__incorect)
+      return
+    }
+
+    const userData = {
+      name, email, password, terms
+    }
+
+    try {
+      const res = await fetch(`${apiUrl}/users`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(userData)
+      })
+
+      // @TODO zwalidowac res.json
+
+      const data: UserRegisterRes = await res.json();
+
+      if (data.message) {
+        toast.info(data.message)
+      }
+      if (res.ok) {
+        navigate('/')
       }
 
-      // dispatch(register(userData))
+    }
+
+    finally {
+      // changeLoadingLogData(false);
+      setFormData({
+        name: '',
+        email: '',
+        password: '',
+        password2: '',
+        terms: false
+      })
     }
 
 
 
-    setFormData({
-      name: '',
-      email: '',
-      password: '',
-      password2: ''
-    })
+
+
+
   }
 
 
@@ -72,8 +125,8 @@ export const Register = () => {
         <input
           className="box"
           type='text'
-          name="text"
-          id="text"
+          name="name"
+          id="name"
           placeholder="Enter your name"
           value={name}
           onChange={change}
@@ -110,8 +163,20 @@ export const Register = () => {
             onChange={change}
             required />
         </label>
+        <label htmlFor="terms">
+          <input
+            className="box"
+            type="checkbox"
+            name='terms'
+            id='terms'
+            required
+            checked={formData.terms}
+            onChange={change}
+          />
+          I agree to the <a href={`${apiUrl}/terms`}>terms of service</a>
+        </label>
 
-        <button type="submit" className="btn btn-block" >Submit</button>
+        <button type="submit" className="btn btn-block" >Sign Up</button>
 
       </form>
 
