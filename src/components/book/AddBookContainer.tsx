@@ -31,9 +31,6 @@ export const AddBookContainer = () => {
     }))
   }
 
-  // const changeTextArea= (e:)=>{
-
-  // }
 
   const formSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -85,7 +82,7 @@ export const AddBookContainer = () => {
 
 
           <h3><BsCloudPlus /> Add Book to DB</h3>
-          <span>Choice category</span>
+          <span>category</span>
           <select className="box" name="category" onChange={change}>
             <option value="" selected>--Choice category--</option>
             <option value="horror">horror</option>
@@ -96,6 +93,7 @@ export const AddBookContainer = () => {
             <option value="cooking">cooking</option>
             <option value="poetry">poetry</option>
             <option value="school">school</option>
+            <option value="romans">romans</option>
           </select>
 
           <span>Title</span>

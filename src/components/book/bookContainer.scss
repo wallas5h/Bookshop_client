@@ -53,6 +53,14 @@
       span {
         font-size: 1.5rem;
         color: $border-hover;
+        text-transform: initial;
+        text-align: left;
+        text-indent: 50px;
+        word-wrap: break-word;
+
+        ::first-letter {
+          font-size: 4rem;
+        }
       }
     }
 
@@ -62,8 +70,8 @@
   .image {
     flex: 1 1 30rem;
     background-color: #fff;
-    max-width: 30rem;
-    min-height: 40rem;
+    max-width: 300px;
+    // min-height: 40rem;
 
     img {
       width: 100%;

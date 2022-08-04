@@ -1,4 +1,6 @@
+import { useEffect, useState } from "react";
 import { FaEye, FaHeart } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 import { A11y, Autoplay, Navigation } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/autoplay';
@@ -6,13 +8,32 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { BookResponseEntity } from "types";
+import { apiUrl } from '../../config/api';
 import './featured.scss';
-import { book1, book2, book3 } from "./imports";
 
 
 
 
 export const Featured = () => {
+
+  const [books, setBooks] = useState<BookResponseEntity[]>([])
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await fetch(`${apiUrl}/book/feature`)
+
+        const data = await res.json();
+
+        setBooks(data);
+
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    )()
+  }, [])
 
 
   return (
@@ -43,60 +64,15 @@ export const Featured = () => {
             },
           }}
         >
-          <SwiperSlide>
-            <div className="box">
-              <div className="icons">
-                <a href="#">< FaHeart /></a>
-                <a href="#" ><FaEye /></a>
-              </div>
-              <div className="image">
-                <img src={book1} alt="" />
-              </div>
-              <div className="content">
-                <h3>featured books</h3>
-                <p>Abraham Lincoln</p>
-                <div className="price">$15.99 <span>$20.99</span></div>
-                <a href="#" className="btn">add to cart</a>
-              </div>
-            </div>
-          </SwiperSlide>
+          {books ? books.map(book => (
+            <SwiperSlide key={book._id}>
+              <FeatureBook  {...book} />
+            </SwiperSlide>
+          )) : 'no feature books'
+          }
 
 
-          <SwiperSlide>
-            <div className="box">
-              <div className="icons">
-                <a href="#">< FaHeart /></a>
-                <a href="#" ><FaEye /></a>
-              </div>
-              <div className="image">
-                <img src={book2} alt="" />
-              </div>
-              <div className="content">
-                <h3>featured books</h3>
-                <p>Abraham Lincoln</p>
-                <div className="price">$15.99 <span>$20.99</span></div>
-                <a href="#" className="btn">add to cart</a>
-              </div>
-            </div>
-          </SwiperSlide>
 
-          <SwiperSlide>
-            <div className="box">
-              <div className="icons">
-                <a href="#">< FaHeart /></a>
-                <a href="#" ><FaEye /></a>
-              </div>
-              <div className="image">
-                <img src={book3} alt="" />
-              </div>
-              <div className="content">
-                <h3>featured books</h3>
-                <p>Abraham Lincoln</p>
-                <div className="price">$15.99 <span>$20.99</span></div>
-                <a href="#" className="btn">add to cart</a>
-              </div>
-            </div>
-          </SwiperSlide>
         </Swiper>
 
 
@@ -104,5 +80,44 @@ export const Featured = () => {
 
 
     </section>
+  )
+}
+
+interface Props {
+  _id: string,
+  title: string,
+  categoty: string,
+  author: string,
+  description: string,
+  imageURL: string,
+  newPrice: number,
+  oldPrice: number,
+  count: number,
+  active: boolean,
+}
+
+export const FeatureBook = ({ _id, title, author, imageURL, newPrice, oldPrice }: Props) => {
+
+  const navigate = useNavigate();
+
+
+  return (
+    <>
+      <div className="box">
+        <div className="icons">
+          <a href="#">< FaHeart /></a>
+          <a onClick={() => navigate(`/book/${_id}`)}><FaEye /></a>
+        </div>
+        <div className="image">
+          <img src={imageURL} alt={title} />
+        </div>
+        <div className="content">
+          <h3>{title}</h3>
+          <p>{author}</p>
+          <div className="price">$ {newPrice} <span>${oldPrice}</span></div>
+          <a href="#" className="btn">add to cart</a>
+        </div>
+      </div>
+    </>
   )
 }
