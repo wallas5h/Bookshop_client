@@ -19,15 +19,18 @@ export const LoginInfo = ({ email }: Props) => {
   const navigate = useNavigate();
 
   const handleLogout = async () => {
-    changeUserLogStatus(false);
-    changeUserName('');
-    changeUserId('');
-    localStorage.setItem('isUserLogged', JSON.stringify(0))
-    localStorage.setItem('token', JSON.stringify(''));
+    dispatch(changeUserLogStatus(false));
+    dispatch(changeUserName(''));
+    dispatch(changeUserId(''));
+
     try {
-      const res = await fetch(`${apiUrl}/users/logout`);
+      const res = await fetch(`${apiUrl}/users/logout`, {
+        credentials: 'include',
+      });
       const data = await res.json();
       toast.info(data.message);
+
+      navigate('/');
 
     } catch (error) {
       console.log(error)
@@ -40,7 +43,9 @@ export const LoginInfo = ({ email }: Props) => {
 
         <div><a href="/#home" className="close-login-btn">< AiOutlineClose /></a></div>
         <div>You are logged as <strong>{email}</strong></div>
-        <button className="btn btn-block" onClick={handleLogout}>Log out</button>
+        <div>
+          <button className="btn btn-block" onClick={handleLogout}>Log out</button>
+        </div>
       </div>
     </>
   )

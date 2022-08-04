@@ -47,6 +47,7 @@ export const Login = () => {
     try {
       const res = await fetch(`${apiUrl}/users/login`, {
         method: 'POST',
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json'
         },
@@ -61,21 +62,16 @@ export const Login = () => {
         toast.info(data.message)
       }
       if (res.ok) {
-        // debugger;
-        // console.log(data._id, data.name)
         dispatch(changeUserLogStatus(true));
-        localStorage.setItem('isUserLogged', JSON.stringify(true));
-        localStorage.setItem('token', JSON.stringify(data.token));
-
-        // console.log(isUserLogged)
+        // localStorage.setItem('isUserLogged', JSON.stringify(true));
 
         if (data._id) {
           dispatch(changeUserId(data._id));
-          localStorage.setItem('userId', JSON.stringify(data._id));
+          // localStorage.setItem('userId', JSON.stringify(data._id));
         }
         if (data.name) {
           dispatch(changeUserName(data.name));
-          localStorage.setItem('userName', JSON.stringify(data.name));
+          // localStorage.setItem('userName', JSON.stringify(data.name));
         }
 
         navigate('/');
