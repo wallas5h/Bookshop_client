@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { FaStar, FaStarHalf } from "react-icons/fa";
 import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 import { BookResponseEntity } from "types";
 import { apiUrl } from '../../config/api';
 import { Footer } from "../footer/Footer";
@@ -15,7 +16,6 @@ export const BookContainer = () => {
 
 
   useEffect(() => {
-    console.log(id);
     (async () => {
       try {
         const res = await fetch(`${apiUrl}/book/${id}`)
@@ -23,7 +23,6 @@ export const BookContainer = () => {
         const data = await res.json();
 
         setBook(data);
-        console.log(data);
 
       } catch (error) {
         console.log(error)
@@ -37,12 +36,13 @@ export const BookContainer = () => {
 
     try {
 
-      const res = await fetch(`${apiUrl}/cart/${bookId}`, {
+      const res = await fetch(`${apiUrl}/cart/${id}`, {
+        credentials: 'include',
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-      })
+      });
+
+      const data = await res.json();
+      toast.info(data.message);
 
     } catch (error) {
 

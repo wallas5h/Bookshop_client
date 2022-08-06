@@ -1,6 +1,9 @@
+import { useEffect, useState } from "react";
+import { BookResponseEntity } from "types";
+import { apiUrl } from '../../config/api';
 
 
-interface Props {
+interface Props2 {
   imgSrc: string
   title: string
   author: string
@@ -10,7 +13,64 @@ interface Props {
   currency: string
 }
 
-export const CardOne = ({ imgSrc, title, author, count, currentPrice, oldPrice, currency }: Props) => {
+interface Props {
+  bookId: string,
+  bookCount: number,
+  increaseCount: () => void,
+  decreaseCount: () => void,
+  deleteFromCart: (id: string) => void,
+}
+
+export const CartOne = ({ bookId, bookCount, increaseCount, decreaseCount, deleteFromCart }: Props) => {
+
+  const [bookDetails, setBookDetails] = useState<Props2>({
+    imgSrc: '',
+    title: '',
+    author: '',
+    count: 0,
+    currentPrice: 0,
+    oldPrice: 0,
+    currency: '$',
+  })
+
+  const { imgSrc, title, author, count, currentPrice, oldPrice, currency } = bookDetails;
+
+  // useEffect(() => {
+  //   console.log(bookId)
+  // }, [])
+
+  useEffect(() => {
+    (
+      async () => {
+        const res = await fetch(`${apiUrl}/book/${bookId}`,
+          {
+            method: 'GET',
+            credentials: 'include',
+            headers: {
+              'Content-Type': 'application/json',
+            }
+          });
+
+        if (!res.ok) {
+          return;
+        }
+
+        const data: BookResponseEntity[] = await res.json();
+        const { imageURL, title, author, count, newPrice, oldPrice } = data[0];
+
+        setBookDetails({
+          imgSrc: imageURL,
+          title,
+          author,
+          count,
+          currentPrice: newPrice,
+          oldPrice,
+          currency: '$',
+        })
+
+      }
+    )()
+  }, [bookCount])
 
   return (
     <div className="cart-one">
@@ -26,9 +86,9 @@ export const CardOne = ({ imgSrc, title, author, count, currentPrice, oldPrice, 
       <div className="book-count">
         <h4>Count:</h4>
         <div className="book-count--container">
-          <span className="book-count--controller">- </span>
-          <span className="book-count--result">{count} </span>
-          <span className="book-count--controller">+ </span>
+          <button disabled={bookCount <= 0 ? true : false} className="book-count--controller" onClick={decreaseCount}>- </button>
+          <span className="book-count--result">{bookCount} </span>
+          <button disabled={bookCount <= count ? false : true} className="book-count--controller" onClick={increaseCount}>+ </button>
         </div>
 
       </div>
@@ -40,7 +100,7 @@ export const CardOne = ({ imgSrc, title, author, count, currentPrice, oldPrice, 
       </div>
 
       <div className="book-action">
-        <span>Remove</span>
+        <span onClick={() => deleteFromCart(bookId)}>Remove</span>
         <span>Move to Wishlist</span>
       </div>
 

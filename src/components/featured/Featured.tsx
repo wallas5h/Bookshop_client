@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { FaEye, FaHeart } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { A11y, Autoplay, Navigation } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/autoplay';
@@ -44,11 +45,11 @@ export const Featured = () => {
         <Swiper
           modules={[Autoplay, Navigation, A11y]}
           spaceBetween={20}
-          loop={true}
+          loop={false}
           navigation
-          autoplay={{
-            delay: 2500
-          }}
+          // autoplay={{
+          //   delay: 2500
+          // }}
           breakpoints={{
             450: {
               slidesPerView: 2,
@@ -100,6 +101,22 @@ export const FeatureBook = ({ _id, title, author, imageURL, newPrice, oldPrice }
 
   const navigate = useNavigate();
 
+  const handleAddToCart = async () => {
+
+    try {
+      const res = await fetch(`${apiUrl}/cart/${_id}`, {
+        credentials: 'include',
+        method: 'POST',
+      });
+
+      const data = await res.json();
+      toast.info(data.message);
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
 
   return (
     <>
@@ -115,7 +132,7 @@ export const FeatureBook = ({ _id, title, author, imageURL, newPrice, oldPrice }
           <h3>{title}</h3>
           <p>{author}</p>
           <div className="price">$ {newPrice} <span>${oldPrice}</span></div>
-          <a href="#" className="btn">add to cart</a>
+          <button className="btn" onClick={handleAddToCart}>add to cart</button>
         </div>
       </div>
     </>
