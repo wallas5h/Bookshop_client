@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { BookResponseEntity } from "types";
 import { apiUrl } from '../../config/api';
 
@@ -19,9 +20,12 @@ interface Props {
   increaseCount: () => void,
   decreaseCount: () => void,
   deleteFromCart: (id: string) => void,
+  addToWishlist: (id: string) => void,
 }
 
-export const CartOne = ({ bookId, bookCount, increaseCount, decreaseCount, deleteFromCart }: Props) => {
+export const CartOne = ({ bookId, bookCount, increaseCount, decreaseCount, deleteFromCart, addToWishlist }: Props) => {
+
+  const navigate = useNavigate();
 
   const [bookDetails, setBookDetails] = useState<Props2>({
     imgSrc: '',
@@ -42,14 +46,7 @@ export const CartOne = ({ bookId, bookCount, increaseCount, decreaseCount, delet
   useEffect(() => {
     (
       async () => {
-        const res = await fetch(`${apiUrl}/book/${bookId}`,
-          {
-            method: 'GET',
-            credentials: 'include',
-            headers: {
-              'Content-Type': 'application/json',
-            }
-          });
+        const res = await fetch(`${apiUrl}/book/${bookId}`);
 
         if (!res.ok) {
           return;
@@ -75,23 +72,25 @@ export const CartOne = ({ bookId, bookCount, increaseCount, decreaseCount, delet
   return (
     <div className="cart-one">
 
-      <img src={imgSrc} alt={`book ${title}`} />
+      <img src={imgSrc} alt={`book ${title}`} onClick={() => navigate(`/book/${bookId}`)} />
 
 
       <div className="book-short-info">
-        <h4 className="book-title">{title}</h4>
+        <h4 className="book-title" onClick={() => navigate(`/book/${bookId}`)} >{title}</h4>
         <span className="book-author">{author}</span>
+
       </div>
 
       <div className="book-count">
-        <h4>Count:</h4>
         <div className="book-count--container">
           <button disabled={bookCount <= 0 ? true : false} className="book-count--controller" onClick={decreaseCount}>- </button>
           <span className="book-count--result">{bookCount} </span>
           <button disabled={bookCount <= count ? false : true} className="book-count--controller" onClick={increaseCount}>+ </button>
-        </div>
 
+        </div>
       </div>
+
+      <span className="book-quantity">Quantity avail.: {count <= 0 ? <em>out of store</em> : count}</span>
 
       <div className="book-price">
         <div>Price:</div>
@@ -101,7 +100,7 @@ export const CartOne = ({ bookId, bookCount, increaseCount, decreaseCount, delet
 
       <div className="book-action">
         <span onClick={() => deleteFromCart(bookId)}>Remove</span>
-        <span>Move to Wishlist</span>
+        <span onClick={() => addToWishlist(bookId)}>Move to Wishlist</span>
       </div>
 
     </div>
