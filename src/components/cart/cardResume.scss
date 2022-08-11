@@ -46,10 +46,11 @@
       .cart-one {
         display: grid;
         grid-template-columns: auto minmax(200px, 300px) auto auto;
-        grid-template-rows: repeat(3, auto);
+        grid-template-rows: repeat(4, auto);
         grid-template-areas:
           " img info count price"
           " img info count price"
+          " img quant count price"
           " action action count price"
         ;
 
@@ -57,7 +58,9 @@
           grid-template-columns: auto 1fr auto auto;
           grid-template-areas:
             " img info info price"
+            " img info info price"
             " img count count price"
+            " img quant quant price"
             " action action action price"
           ;
         }
@@ -70,6 +73,7 @@
           grid-area: img;
           height: 15rem;
           margin-right: 2rem;
+          cursor: pointer;
 
           @media (max-width:850px) {
             height: 15rem;
@@ -86,6 +90,7 @@
             font-size: 2.2rem;
             font-weight: 800;
             color: #000;
+            cursor: pointer;
           }
 
           span {
@@ -93,28 +98,23 @@
             font-weight: 400;
             color: #333;
           }
+
         }
 
         .book-count {
           margin: 0 3rem;
+          display: flex;
+          flex-wrap: wrap;
+          align-items: center;
+          align-self: center;
 
           @media (max-width:1150px) {
             margin: 0;
           }
 
-          h4 {
-            font-size: 1.5rem;
-            margin-bottom: 2rem;
-            text-align: center;
-
-            @media (max-width:1150px) {
-              display: none;
-            }
-          }
-
           div {
             font-size: 1.5rem;
-            margin-bottom: 2rem;
+            // margin-bottom: 2rem;
             text-align: center;
 
             @media (max-width:1150px) {
@@ -140,6 +140,22 @@
             line-height: 2rem;
             font-size: 2rem;
             color: $green;
+          }
+
+        }
+
+        .book-quantity {
+          grid-area: quant;
+          display: block;
+          margin: 1rem 0;
+          text-transform: none;
+          font-size: 1.5rem;
+          font-weight: 400;
+          color: #333;
+
+          em {
+            text-transform: none;
+            color: red;
           }
         }
 
@@ -212,7 +228,28 @@
     .shopping-list--cart--wishlisted {
       @extend .shopping-list--cart;
 
+      section {
+        padding: 0 0;
+      }
 
+      .heading {
+        display: none;
+      }
+
+      .cart-one .book-action span {
+        margin-right: 2rem;
+        padding: 1rem 0;
+        font-size: 1.5rem;
+        font-weight: 400;
+        text-transform: initial;
+        color: darken($green , 10%);
+        cursor: pointer;
+        background-color: #fff;
+
+        &:hover {
+          color: $green;
+        }
+      }
     }
   }
 

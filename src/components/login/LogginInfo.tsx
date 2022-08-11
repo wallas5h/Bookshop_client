@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import { apiUrl } from '../../config/api';
 import { changeUserId, changeUserLogStatus, changeUserName } from "../../features/auth/authSlice";
 import { RootState } from "../../features/store";
-import './login.scss';
+import './loginInfo.scss';
 
 interface Props {
   email: string | null;
@@ -39,12 +39,12 @@ export const LoginInfo = ({ email }: Props) => {
 
   return (
     <>
-      <div className="login-form-container">
+      <div className="login-form-container-info">
 
         <div><a href="/#home" className="close-login-btn">< AiOutlineClose /></a></div>
-        <div>You are logged as <strong>{email}</strong></div>
+        <div className="log-info">You are logged as: <strong>{email}</strong></div>
         <div>
-          <button className="btn btn-block" onClick={handleLogout}>Log out</button>
+          <button className="btn-login--info" onClick={handleLogout}>Log out</button>
         </div>
       </div>
     </>

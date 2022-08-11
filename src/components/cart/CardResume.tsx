@@ -1,11 +1,15 @@
 
 
 import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 import { GetBooksFromCartResponse } from 'types';
 import { apiUrl } from '../../config/api';
+import { addChangeBetweenCartWishlist } from '../../features/cart/cartSlice';
+import { RootState } from "../../features/store";
+import { WishlistResume } from '../wishlist/WishlistResume';
 import { CartOne } from './CardOne';
 import './cardResume.scss';
-import { WishlistOne } from './WishlistOne';
 
 
 export const CardResume = () => {
@@ -15,6 +19,9 @@ export const CardResume = () => {
   const [countBooksChange, setCountBooksChange] = useState<number>(0);
 
   const [totalCost, setTotalCost] = useState<number>(0);
+
+  const dispatch = useDispatch();
+  const { changeBetweenCartWishlist } = useSelector((store: RootState) => store.cartWishlist);
 
   useEffect(() => {
     (async () => {
@@ -42,7 +49,12 @@ export const CardResume = () => {
       }
     })()
 
-  }, [countBooksChange, totalCost])
+  }, [countBooksChange, changeBetweenCartWishlist]);
+
+  const refreshCartWishlist = () => {
+    setCountBooksChange(prev => prev + 1)
+    dispatch(addChangeBetweenCartWishlist(changeBetweenCartWishlist + 1));
+  }
 
   const handleAddToCart = async (bookId: string) => {
 
@@ -58,7 +70,7 @@ export const CardResume = () => {
       console.log(error)
     }
 
-    setCountBooksChange(prev => prev + 1)
+    refreshCartWishlist();
   }
 
   const handleMinusFromCart = async (bookId: string) => {
@@ -75,27 +87,40 @@ export const CardResume = () => {
       console.log(error)
     }
 
-    setCountBooksChange(prev => prev + 1)
+    refreshCartWishlist();
   }
 
   const handleDeleteBookFromCart = async (bookId: string) => {
 
-    console.log(`${apiUrl}/cart/${bookId}`)
     try {
       const res = await fetch(`${apiUrl}/cart/${bookId}`, {
         credentials: 'include',
         method: 'DELETE',
       });
 
-      const data = await res.json();
-
-      console.log(data)
-
     } catch (error) {
       console.log(error)
     }
 
-    setCountBooksChange(prev => prev + 1)
+    refreshCartWishlist();
+  }
+
+  const handleAddToWishlist = async (bookId: string) => {
+
+    try {
+      const res = await fetch(`${apiUrl}/wishlist/${bookId}`, {
+        credentials: 'include',
+        method: 'POST',
+      });
+
+      const data = await res.json();
+      toast.info(data.message);
+
+    } catch (error) {
+      console.log(error)
+    }
+    handleDeleteBookFromCart(bookId);
+    refreshCartWishlist();
   }
 
   return (
@@ -116,6 +141,7 @@ export const CardResume = () => {
                 increaseCount={() => handleAddToCart(book.id)}
                 decreaseCount={() => handleMinusFromCart(book.id)}
                 deleteFromCart={handleDeleteBookFromCart}
+                addToWishlist={handleAddToWishlist}
               />
             ))}
 
@@ -123,34 +149,7 @@ export const CardResume = () => {
 
           <div className="shopping-list--cart--wishlisted">
             <p><span> Recently wishlisted</span></p>
-
-            <WishlistOne
-              imgSrc={"https://wallas5h.github.io/photos_bookshop/images/book-2.png"}
-              title={"the art city"}
-              author={"Lincoln"}
-              count={1}
-              currentPrice={20}
-              oldPrice={25}
-              currency={"$"}
-            />
-            <WishlistOne
-              imgSrc={"https://wallas5h.github.io/photos_bookshop/images/book-2.png"}
-              title={"the art city"}
-              author={"Lincoln"}
-              count={1}
-              currentPrice={20}
-              oldPrice={25}
-              currency={"$"}
-            />
-            <WishlistOne
-              imgSrc={"https://wallas5h.github.io/photos_bookshop/images/book-2.png"}
-              title={"the art city"}
-              author={"Lincoln"}
-              count={1}
-              currentPrice={20}
-              oldPrice={25}
-              currency={"$"}
-            />
+            <WishlistResume />
 
           </div>
 
@@ -158,7 +157,7 @@ export const CardResume = () => {
         <div className="shopping-checkout--container">
           <div className="shopping-checkout-box">
             <h4>Total:</h4>
-            <p><span > $ {totalCost}</span></p>
+            <p><span > $ {totalCost.toFixed(2)}</span></p>
 
 
             <button className="btn btn-block">Checkout</button>
