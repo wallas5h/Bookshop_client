@@ -8,9 +8,11 @@ import {
   REGISTER, REHYDRATE
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
+import { cartWishlistSlice } from "../cart/cartSlice";
 
-const authReducer = combineReducers({
-  auth: authSlice.reducer
+const Reducer = combineReducers({
+  auth: authSlice.reducer,
+  cartWishlist: cartWishlistSlice.reducer
 })
 
 const persistConfig = {
@@ -18,7 +20,7 @@ const persistConfig = {
   storage,
 }
 
-const persistedReducer = persistReducer(persistConfig, authReducer)
+const persistedReducer = persistReducer(persistConfig, Reducer)
 
 export const store = configureStore({
   reducer: persistedReducer,
