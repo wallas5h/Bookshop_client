@@ -32,7 +32,6 @@ export const BookContainer = () => {
   }, []);
 
   const handleAddToCard = async (bookId: string) => {
-    // const userId = localStorage.getItem('userId')
 
     try {
 
@@ -47,7 +46,22 @@ export const BookContainer = () => {
     } catch (error) {
 
     }
+  }
+  const handleAddToWishlist = async (bookId: string) => {
 
+    try {
+
+      const res = await fetch(`${apiUrl}/wishlist/${id}`, {
+        credentials: 'include',
+        method: 'POST',
+      });
+
+      const data = await res.json();
+      toast.info(data.message);
+
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
@@ -81,7 +95,8 @@ export const BookContainer = () => {
                 </div>
 
 
-                <a onClick={() => handleAddToCard(item._id)} className="btn">add to cart</a>
+                <button disabled={item.count <= 0 ? true : false} onClick={() => handleAddToCard(item._id)} className="btn">add to cart</button>
+                <a onClick={() => handleAddToWishlist(item._id)} className="btn">add to wishlist</a>
               </div>
 
             </div>
