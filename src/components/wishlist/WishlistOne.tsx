@@ -1,7 +1,11 @@
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { BookResponseEntity } from "types";
+import { apiUrl } from '../../config/api';
 
 
 
-interface Props {
+interface Props2 {
   imgSrc: string
   title: string
   author: string
@@ -10,18 +14,72 @@ interface Props {
   oldPrice: number
   currency: string
 }
+// { imgSrc, title, author, count, currentPrice, oldPrice, currency }
 
-export const WishlistOne = ({ imgSrc, title, author, count, currentPrice, oldPrice, currency }: Props) => {
+interface Props {
+  bookId: string,
+  availability: boolean,
+  deleteFromWishlist: (id: string) => void
+  addToCart: (id: string) => void
+}
+
+export const WishlistOne = ({ bookId, availability, deleteFromWishlist, addToCart }: Props) => {
+
+  const navigate = useNavigate();
+
+  const [bookDetails, setBookDetails] = useState<Props2>({
+    imgSrc: '',
+    title: '',
+    author: '',
+    count: 0,
+    currentPrice: 0,
+    oldPrice: 0,
+    currency: '$',
+  })
+
+  const { imgSrc, title, author, count, currentPrice, oldPrice, currency } = bookDetails;
+
+  useEffect(() => {
+    (
+      async () => {
+        const res = await fetch(`${apiUrl}/book/${bookId}`);
+
+        if (!res.ok) {
+          return;
+        }
+
+        const data: BookResponseEntity[] = await res.json();
+        const { imageURL, title, author, count, newPrice, oldPrice } = data[0];
+
+        setBookDetails({
+          imgSrc: imageURL,
+          title,
+          author,
+          count,
+          currentPrice: newPrice,
+          oldPrice,
+          currency: '$',
+        })
+
+      }
+    )()
+  }, [])
+
+  const handleClick = () => {
+
+  }
 
   return (
     <div className="cart-one">
 
-      <img src="https://wallas5h.github.io/photos_bookshop/images/book-3.png" alt={`book ${title}`} />
+      <img onClick={() => navigate(`/book/${bookId}`)} src={imgSrc} alt={`book ${title}`} />
 
 
       <div className="book-short-info">
-        <h4 className="book-title">{title}</h4>
+        <h4 className="book-title" onClick={() => navigate(`/book/${bookId}`)} >{title} </h4>
         <span className="book-author">{author}</span>
+        <span className="book-quantity">Quantity avail.: {count <= 0 ? <em>out of store</em> : count}</span>
+
       </div>
 
       <div className="book-price">
@@ -32,8 +90,8 @@ export const WishlistOne = ({ imgSrc, title, author, count, currentPrice, oldPri
       </div>
 
       <div className="book-action">
-        <span className="btn btn-block">Add to Cart</span>
-        <span className="btn btn-block">Remove</span>
+        <span className="btn btn-block" onClick={() => deleteFromWishlist(bookId)}>Remove</span>
+        <span aria-disabled={bookDetails.count <= 0 ? true : false} className="btn btn-block" onClick={() => addToCart(bookId)}>Add to Cart</span>
       </div>
 
     </div>
