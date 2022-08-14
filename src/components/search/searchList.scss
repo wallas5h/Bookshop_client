@@ -104,3 +104,83 @@
   }
 
 }
+
+.search-result--count {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 2rem;
+
+  p {
+    font-size: 2rem;
+    color: $black;
+  }
+}
+
+.search-result-view-per-page {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 2rem;
+  color: $black;
+
+  select {
+    margin-left: 1rem;
+    border: 2px solid $green;
+    font-size: 2rem;
+    background-color: #fff;
+    color: darken($color: $green, $amount: 20%);
+    cursor: pointer;
+  }
+}
+
+.pagination-container {
+  margin-top: 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &--controller {
+    @extend %flex-center;
+    margin: 0 1rem;
+    padding: 1.5rem;
+    border: 1px solid #000;
+    border-radius: 50%;
+    background-color: #fff;
+    cursor: pointer;
+
+    svg {
+      color: $green;
+      scale: 3;
+    }
+
+    &:disabled {
+      border-color: #777;
+      cursor: auto;
+
+      svg {
+        color: #777;
+      }
+    }
+  }
+
+  &--pages {
+    display: flex;
+
+    div {
+      font-size: 3rem;
+    }
+
+    p {
+      @extend %flex-center;
+      margin: 0 5px;
+
+      span {
+        display: inline-block;
+        margin: 2px;
+        width: 5px;
+        height: 5px;
+        background-color: #777;
+        border-radius: 50%;
+      }
+    }
+  }
+}

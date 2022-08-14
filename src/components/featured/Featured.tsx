@@ -3,7 +3,7 @@ import { FaEye, FaHeart } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { A11y, Autoplay, Navigation } from 'swiper';
+import { Navigation } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/autoplay';
 import "swiper/css/navigation";
@@ -44,13 +44,9 @@ export const Featured = () => {
 
       <div className="featured-slider">
         <Swiper
-          modules={[Autoplay, Navigation, A11y]}
+          modules={[Navigation]}
           spaceBetween={20}
-          loop={false}
           navigation
-          // autoplay={{
-          //   delay: 2500
-          // }}
           breakpoints={{
             450: {
               slidesPerView: 2,
@@ -142,7 +138,7 @@ export const FeatureBook = ({ _id, title, author, imageURL, newPrice, oldPrice, 
 
   return (
     <>
-      <div className="box">
+      <div className="box box-search-item">
         <div className="icons">
           <a onClick={handleAddToWishlist}>< FaHeart /></a>
           <a onClick={() => navigate(`/book/${_id}`)}><FaEye /></a>

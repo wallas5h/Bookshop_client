@@ -1,5 +1,5 @@
 
-import { UserLogInReq, UserRegisterReq, UserResetPasswordReq } from 'types';
+import { NewsletterEntity, UserLogInReq, UserRegisterReq, UserResetPasswordReq } from 'types';
 
 
 
@@ -13,14 +13,14 @@ export interface UserRegisterForm extends UserRegisterReq {
 }
 
 export const messagesValidation = {
-  name__incorect: 'Names should have at least 3 characters long and not longer than 25 characters',
+  name__incorect: 'Names should have at least 3 characters long and not longer than 50 characters',
   email__incorect: 'Invalid e-mail',
   password__incorect: 'The password must be at least 8 characters, not more than 15 characters and must contain at least one digit, one letter and one special character.',
   password2__incorect: 'Passwords do not match.',
   terms__incorect: 'Don\'t accepted terms of service'
 }
 
-export const singinFunctionFormValidation = (form: UserLogInReq | UserResetPasswordReq) => {
+export const singinFunctionFormValidation = (form: UserLogInReq | UserResetPasswordReq | NewsletterEntity) => {
 
   let email = false;
 
@@ -32,7 +32,7 @@ export const singinFunctionFormValidation = (form: UserLogInReq | UserResetPassw
     form.email.lastIndexOf('.') !== -1 &&
     form.email.indexOf('@@') === -1 &&
     form.email.length > 2 &&
-    form.email.length < 26 &&
+    form.email.length < 50 &&
     form.email.match(
       /^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/)
   ) {
@@ -54,7 +54,7 @@ export const singupFunctionFormValidation = (form: UserRegisterForm) => {
     typeof form.name === 'string' &&
     form.name.match(/^[a-zA-Z]+$/) &&
     form.name.length > 2 &&
-    form.name.length < 26
+    form.name.length < 50
   ) {
     name = true;
   }
@@ -67,7 +67,7 @@ export const singupFunctionFormValidation = (form: UserRegisterForm) => {
     form.email.lastIndexOf('.') !== -1 &&
     form.email.indexOf('@@') === -1 &&
     form.email.length > 2 &&
-    form.email.length < 26 &&
+    form.email.length < 50 &&
     form.email.match(
       /^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/)
   ) {

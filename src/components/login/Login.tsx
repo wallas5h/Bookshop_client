@@ -63,15 +63,12 @@ export const Login = () => {
       }
       if (res.ok) {
         dispatch(changeUserLogStatus(true));
-        // localStorage.setItem('isUserLogged', JSON.stringify(true));
 
         if (data._id) {
           dispatch(changeUserId(data._id));
-          // localStorage.setItem('userId', JSON.stringify(data._id));
         }
         if (data.name) {
           dispatch(changeUserName(data.name));
-          // localStorage.setItem('userName', JSON.stringify(data.name));
         }
 
         navigate('/');

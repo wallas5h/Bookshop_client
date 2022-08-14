@@ -9,10 +9,12 @@ import {
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { cartWishlistSlice } from "../cart/cartSlice";
+import { searchSlice } from "../search/searchSlice";
 
 const Reducer = combineReducers({
   auth: authSlice.reducer,
-  cartWishlist: cartWishlistSlice.reducer
+  cartWishlist: cartWishlistSlice.reducer,
+  search: searchSlice.reducer
 })
 
 const persistConfig = {
@@ -33,11 +35,5 @@ export const store = configureStore({
 })
 
 export let persistor = persistStore(store)
-
-// export const store = configureStore({
-//   reducer: {
-//     auth: authSlice.reducer
-//   }
-// })
 
 export type RootState = ReturnType<typeof store.getState>
