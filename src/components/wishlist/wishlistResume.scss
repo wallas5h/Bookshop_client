@@ -49,18 +49,15 @@
         }
 
         border-bottom: 1px solid #555;
-        padding-bottom: 1rem;
+        padding-bottom: 3rem;
         margin: 2rem 0;
 
         img {
           grid-area: img;
-          height: 15rem;
+          width: 100px;
+          height: 150px;
           margin-right: 2rem;
           cursor: pointer;
-
-          @media (max-width:850px) {
-            height: 15rem;
-          }
         }
 
         .book-short-info {

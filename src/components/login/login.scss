@@ -112,8 +112,9 @@
 
   .close-login-btn {
     position: absolute;
-    top: 1.5rem;
-    right: 2.5rem;
+    padding: 1rem;
+    top: 1rem;
+    right: 2rem;
     font-size: 5rem;
     color: $black;
     cursor: pointer;
@@ -123,5 +124,18 @@
         color: $green;
       }
     }
+  }
+
+  .login-form-terms {
+    display: flex;
+    align-items: center;
+    margin-left: 1rem;
+
+    p {
+      text-transform: unset;
+      display: inline-block;
+      margin-left: 1rem;
+    }
+
   }
 }

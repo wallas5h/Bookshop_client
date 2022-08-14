@@ -83,12 +83,12 @@ export const SearchList = () => {
         <div className="pagination-container">
           <button
             className="pagination-container--controller"
-            disabled={currentPage === 1 ? true : false}
+            disabled={currentPage <= 1 ? true : false}
             onClick={() => dispatch(changeCurrentPage(currentPage - 1))}>
             <MdKeyboardArrowLeft /></button>
 
           <div className="pagination-container--pages">
-            <div style={styles.boldText}>{currentPage}</div>
+            <div style={styles.boldText}>{totalPages === 0 ? 0 : currentPage}</div>
             <p><span></span><span></span><span></span></p>
             <div>{totalPages}</div>
           </div>

@@ -35,11 +35,6 @@ export const Register = () => {
   })
 
   const navigate = useNavigate();
-  // const dispatch = useDispatch();
-
-  // const { user, isLoading, isError, isSuccess, message } = useSelector(
-  //   (state: any) => state.auth
-  // )
 
   const change = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.type === 'checkbox') {
@@ -82,8 +77,6 @@ export const Register = () => {
         body: JSON.stringify(userData)
       })
 
-      // @TODO zwalidowac res.json
-
       const data: UserRegisterRes = await res.json();
 
       if (data.message) {
@@ -96,7 +89,6 @@ export const Register = () => {
     }
 
     finally {
-      // changeLoadingLogData(false);
       setFormData({
         name: '',
         email: '',
@@ -105,12 +97,6 @@ export const Register = () => {
         terms: false
       })
     }
-
-
-
-
-
-
   }
 
 
@@ -163,9 +149,8 @@ export const Register = () => {
             onChange={change}
             required />
         </label>
-        <label htmlFor="terms">
+        <label htmlFor="terms" className='login-form-terms'>
           <input
-            className="box"
             type="checkbox"
             name='terms'
             id='terms'
@@ -173,7 +158,9 @@ export const Register = () => {
             checked={formData.terms}
             onChange={change}
           />
-          I agree to the <a href={`${apiUrl}/terms`}>terms of service</a>
+          <p>I agree to the <a href={`${apiUrl}/terms`}>terms of service</a>
+          </p>
+
         </label>
 
         <button type="submit" className="btn btn-block" >Sign Up</button>

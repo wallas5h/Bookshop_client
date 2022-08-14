@@ -70,7 +70,7 @@ export const BookContainer = () => {
       {
         book.map(item => (
 
-          <section>
+          <section key={item._id}>
             <div className="book-container">
 
               <div className="image">
@@ -96,7 +96,7 @@ export const BookContainer = () => {
 
 
                 <button disabled={item.count <= 0 ? true : false} onClick={() => handleAddToCard(item._id)} className="btn">add to cart</button>
-                <a onClick={() => handleAddToWishlist(item._id)} className="btn">add to wishlist</a>
+                <a onClick={() => handleAddToWishlist(item._id)} className="btn--bookOne">add to wishlist</a>
               </div>
 
             </div>
