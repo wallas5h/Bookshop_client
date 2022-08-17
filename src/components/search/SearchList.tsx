@@ -38,15 +38,9 @@ export const SearchList = () => {
       setResultsCount(data.count)
 
     })()
-  }, [currentPage, perPage])
+  }, [currentPage, perPage, phrase])
 
   const styles = {
-    displayNone: {
-      display: 'none'
-    },
-    displayBlock: {
-      display: 'block'
-    },
     boldText: {
       fontWeight: 'bold'
     }

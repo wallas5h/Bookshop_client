@@ -41,12 +41,10 @@ export const CardResume = () => {
 
       const data = await res.json();
 
-      if (data.books) {
-        setBooksFromCart(data.books)
-      }
-      if (data.totalCost) {
-        setTotalCost(data.totalCost)
-      }
+
+      setBooksFromCart(data.books)
+      setTotalCost(data.totalCost)
+
     })()
 
   }, [countBooksChange, changeBetweenCartWishlist]);
@@ -132,7 +130,7 @@ export const CardResume = () => {
         <div className="shopping-lists-group">
           <div className="shopping-list--cart">
 
-            <p><span> Books in Card</span></p>
+            <h1 className="heading"><span> Books in Card</span></h1>
 
             {booksFromCart.map((book, index) => (
               <CartOne key={index}
@@ -148,7 +146,7 @@ export const CardResume = () => {
           </div>
 
           <div className="shopping-list--cart--wishlisted">
-            <p><span> Recently wishlisted</span></p>
+            <h1 className="heading heading-shopping"><span> Recently wishlisted</span></h1>
             <WishlistResume />
 
           </div>
