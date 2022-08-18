@@ -21,6 +21,10 @@ export const Login = () => {
     password: '',
   });
 
+  const [warning, setWarning] = useState<string>('');
+
+  const [resendVerificationLink, setResendVerificationLink] = useState<boolean>(false);
+
   const { email, password, } = formData;
   const navigate = useNavigate();
 
@@ -30,6 +34,17 @@ export const Login = () => {
       [e.target.name]: e.target.value
     }))
 
+  }
+
+  const clearForms = () => {
+    setResendVerificationLink(false);
+    setWarning('');
+    setFormData({
+      email: '',
+      password: '',
+    })
+
+    console.log(resendVerificationLink, warning);
   }
 
   const formSubmit = async (e: FormEvent) => {
@@ -54,14 +69,22 @@ export const Login = () => {
         body: JSON.stringify(userData)
       })
 
-      // @TODO zwalidowac res.json
-
       const data: UserLoginRes = await res.json();
 
-      if (data.message) {
-        toast.info(data.message)
+      if (!res.ok) {
+        if (data.warning) {
+          setWarning(data.warning);
+        }
+
+        if (data.resendVerificationLink) {
+          setResendVerificationLink(data.resendVerificationLink)
+        }
       }
+
       if (res.ok) {
+
+        toast.info(data.message);
+
         dispatch(changeUserLogStatus(true));
 
         if (data._id) {
@@ -72,20 +95,47 @@ export const Login = () => {
         }
 
         navigate('/');
+
+        setFormData({
+          email: '',
+          password: '',
+        })
       }
 
-
+    } catch (error) {
+      console.log(error);
     }
 
-    finally {
-      // changeLoadingLogData(false);
-      setFormData({
-        email: '',
-        password: '',
+  }
+
+  const handleResendVerificationEmail = async () => {
+
+    if (!formData.email) return;
+
+    try {
+      const res = await fetch(`${apiUrl}/users/resendRegisterVerification`, {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email: formData.email
+        })
       })
 
-    }
+      const data = await res.json();
 
+      if (res.ok) {
+        clearForms();
+        toast.info(data.message);
+
+        setTimeout(() => { navigate(0) }, 3000);
+      }
+
+    } catch (error) {
+      console.log(error);
+    }
   }
 
 
@@ -96,6 +146,9 @@ export const Login = () => {
 
       <form onSubmit={formSubmit}>
         <h3><FaSignInAlt /> Login</h3>
+        <a href=""></a>
+        {warning && <span style={{ color: 'red' }}>{warning}</span>}
+        {/* {resendVerificationLink && <button style={{ color: 'blue' }} onClick={handleResendVerificationEmail}>Click here to resend verification email.</button>} */}
         <span>Email</span>
         <input
           className="box"
@@ -117,6 +170,7 @@ export const Login = () => {
           onChange={change}
           required />
         <button type="submit" className="btn btn-block" >Submit</button>
+        {resendVerificationLink && <button className="btn btn-block" onClick={handleResendVerificationEmail}>resend verification email</button>}
         <p>forget password ? <a href="/login/remind">click here</a></p>
         <p>don't have an account ? <a href="/register">create one</a></p>
       </form>
@@ -124,3 +178,5 @@ export const Login = () => {
     </div>
   )
 }
+
+
