@@ -146,9 +146,7 @@ export const Login = () => {
 
       <form onSubmit={formSubmit}>
         <h3><FaSignInAlt /> Login</h3>
-        <a href=""></a>
         {warning && <span style={{ color: 'red' }}>{warning}</span>}
-        {/* {resendVerificationLink && <button style={{ color: 'blue' }} onClick={handleResendVerificationEmail}>Click here to resend verification email.</button>} */}
         <span>Email</span>
         <input
           className="box"
@@ -171,7 +169,7 @@ export const Login = () => {
           required />
         <button type="submit" className="btn btn-block" >Submit</button>
         {resendVerificationLink && <button className="btn btn-block" onClick={handleResendVerificationEmail}>resend verification email</button>}
-        <p>forget password ? <a href="/login/remind">click here</a></p>
+        <p>forget password ? <a href="/login/reset">click here</a></p>
         <p>don't have an account ? <a href="/register">create one</a></p>
       </form>
 

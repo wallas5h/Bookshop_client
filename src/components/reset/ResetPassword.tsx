@@ -1,13 +1,15 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { FaUserAstronaut } from "react-icons/fa";
+import { toast } from "react-toastify";
+import { apiUrl } from '../../config/api';
+import { messagesValidation as messages, singinFunctionFormValidation as formValidation } from "../../utils/logs.utils";
 import './remindPassword.scss';
 
-export const RemindPassword = () => {
+export const ResetPassword = () => {
 
   const [formData, setFormData] = useState({
     email: '',
-
   });
 
   const { email } = formData;
@@ -20,15 +22,40 @@ export const RemindPassword = () => {
 
   }
 
-  const formSubmit = (e: FormEvent) => {
+  const formSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
+    const validation = formValidation(formData);
 
+    if (!validation.email) {
+      toast.error(messages.email__incorect)
+    }
 
-    setFormData({
-      email: '',
+    try {
+      const res = await fetch(`${apiUrl}/password/reset`, {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email: formData.email
+        })
+      })
 
-    })
+      const data = await res.json();
+
+      if (res.ok) {
+        setFormData({
+          email: '',
+        })
+        toast.info(data.message);
+
+      }
+
+    } catch (error) {
+      console.log(error);
+    }
   }
 
 
@@ -38,7 +65,7 @@ export const RemindPassword = () => {
       <div><a href="/#home" className="close-login-btn">< AiOutlineClose /></a></div>
 
       <form onSubmit={formSubmit}>
-        <h3><FaUserAstronaut /> Remind Password</h3>
+        <h3><FaUserAstronaut /> Reset Password</h3>
         <span>Email</span>
         <input
           className="box"

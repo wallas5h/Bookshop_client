@@ -134,10 +134,10 @@ export const CardResume = () => {
 
             {booksFromCart.map((book, index) => (
               <CartOne key={index}
-                bookId={book.id}
+                bookId={book.bookId}
                 bookCount={book.count}
-                increaseCount={() => handleAddToCart(book.id)}
-                decreaseCount={() => handleMinusFromCart(book.id)}
+                increaseCount={() => handleAddToCart(book.bookId)}
+                decreaseCount={() => handleMinusFromCart(book.bookId)}
                 deleteFromCart={handleDeleteBookFromCart}
                 addToWishlist={handleAddToWishlist}
               />

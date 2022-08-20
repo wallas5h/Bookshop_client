@@ -1,5 +1,5 @@
 
-import { NewsletterEntity, UserLogInReq, UserRegisterReq, UserResetPasswordReq } from 'types';
+import { NewsletterEntity, ResetPasswordRequest, UserLogInReq, UserRegisterReq, UserResetPasswordReq } from 'types';
 
 
 
@@ -15,7 +15,7 @@ export interface UserRegisterForm extends UserRegisterReq {
 export const messagesValidation = {
   name__incorect: 'Names should have at least 3 characters long and not longer than 50 characters',
   email__incorect: 'Invalid e-mail',
-  password__incorect: 'The password must be at least 8 characters, not more than 15 characters and must contain at least one digit, one letter and one special character.',
+  password__incorect: 'The password must be at least 8 characters, not more than 40 characters and must contain at least one digit, one letter and one special character.',
   password2__incorect: 'Passwords do not match.',
   terms__incorect: 'Don\'t accepted terms of service'
 }
@@ -40,6 +40,30 @@ export const singinFunctionFormValidation = (form: UserLogInReq | UserResetPassw
   }
 
   return { email }
+}
+
+export const setPasswordFormValidation = (form: ResetPasswordRequest) => {
+
+  let password = false;
+  let password2 = false;
+
+  if (
+    typeof form.password === 'string' &&
+    form.password.indexOf(' ') === -1 &&
+    form.password.length > 7 &&
+    form.password.length < 40 &&
+    form.password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,40}$/)
+  ) {
+    password = true;
+  }
+  if (
+    typeof form.password2 === 'string' &&
+    form.password === form.password2
+  ) {
+    password2 = true;
+  }
+
+  return { password, password2 }
 }
 
 export const singupFunctionFormValidation = (form: UserRegisterForm) => {
@@ -78,8 +102,8 @@ export const singupFunctionFormValidation = (form: UserRegisterForm) => {
     typeof form.password === 'string' &&
     form.password.indexOf(' ') === -1 &&
     form.password.length > 7 &&
-    form.password.length < 15 &&
-    form.password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,15}$/)
+    form.password.length < 40 &&
+    form.password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,40}$/)
   ) {
     password = true;
   }
