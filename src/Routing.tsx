@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
-import { AddBookContainer, BookContainer, CartContainer, Register, ResetPassword, SearchContainer, SetPassword, WishlistContainer } from './components';
+import { AddBookContainer, BookContainer, CartContainer, OrderCanceled, OrderSuccess, Register, ResetPassword, SearchContainer, SetPassword, WishlistContainer } from './components';
 import { LoginContainer } from './components/login/LoginContainer';
 import { HomeContainer } from './containers/home/HomeContainer';
 
@@ -20,6 +20,8 @@ export const Routing = () => {
         <Route path='/register' element={<Register />} />
         <Route path='/search' element={<SearchContainer />} />
         <Route path='/wishlist' element={<WishlistContainer />} />
+        <Route path='/payment/success' element={<OrderSuccess />} />
+        <Route path='/payment/cancel' element={<OrderCanceled />} />
       </Routes>
     </>
   )

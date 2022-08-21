@@ -15,6 +15,8 @@ export { Home } from './home/Home';
 export { Icons } from './icons/Icons';
 export { Login } from './login/Login';
 export { Newsletter } from './newletter/Newsletter';
+export { OrderCanceled } from './payment/Canceled';
+export { OrderSuccess } from './payment/Success';
 export { Register } from './register/Register';
 export { ResetPassword } from './reset/ResetPassword';
 export { SetPassword } from './reset/SetPassword';
