@@ -1,28 +1,34 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { authSlice } from "../auth/authSlice";
 
-
 import {
-  FLUSH, PAUSE,
-  PERSIST, persistReducer, persistStore, PURGE,
-  REGISTER, REHYDRATE
-} from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
+  FLUSH,
+  PAUSE,
+  PERSIST,
+  persistReducer,
+  persistStore,
+  PURGE,
+  REGISTER,
+  REHYDRATE,
+} from "redux-persist";
+import storage from "redux-persist/lib/storage";
 import { cartWishlistSlice } from "../cart/cartSlice";
+import { paymentSlice } from "../payment/paymentSlice";
 import { searchSlice } from "../search/searchSlice";
 
 const Reducer = combineReducers({
   auth: authSlice.reducer,
   cartWishlist: cartWishlistSlice.reducer,
-  search: searchSlice.reducer
-})
+  search: searchSlice.reducer,
+  payment: paymentSlice.reducer,
+});
 
 const persistConfig = {
-  key: 'root',
+  key: "root",
   storage,
-}
+};
 
-const persistedReducer = persistReducer(persistConfig, Reducer)
+const persistedReducer = persistReducer(persistConfig, Reducer);
 
 export const store = configureStore({
   reducer: persistedReducer,
@@ -32,8 +38,8 @@ export const store = configureStore({
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
     }),
-})
+});
 
-export let persistor = persistStore(store)
+export let persistor = persistStore(store);
 
-export type RootState = ReturnType<typeof store.getState>
+export type RootState = ReturnType<typeof store.getState>;
