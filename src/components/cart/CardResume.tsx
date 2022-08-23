@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { GetBooksFromCartResponse } from "types";
 import { apiUrl } from "../../config/api";
 import {
   addChangeBetweenCartWishlist,
   setCartId,
+  setTotalCost,
 } from "../../features/cart/cartSlice";
 import { RootState } from "../../features/store";
 import { WishlistResume } from "../wishlist/WishlistResume";
@@ -13,16 +15,16 @@ import { CartOne } from "./CardOne";
 import "./cardResume.scss";
 
 export const CardResume = () => {
+  const navigate = useNavigate();
+
   const [booksFromCart, setBooksFromCart] = useState<
     GetBooksFromCartResponse[] | []
   >([]);
 
   const [countBooksChange, setCountBooksChange] = useState<number>(0);
 
-  const [totalCost, setTotalCost] = useState<number>(0);
-
   const dispatch = useDispatch();
-  const { changeBetweenCartWishlist } = useSelector(
+  const { changeBetweenCartWishlist, totalCost } = useSelector(
     (store: RootState) => store.cartWishlist
   );
 
@@ -43,8 +45,8 @@ export const CardResume = () => {
       const data = await res.json();
 
       setBooksFromCart(data.books);
-      setTotalCost(data.totalCost);
-      setCartId(data.cartId);
+      dispatch(setTotalCost(data.totalCost));
+      dispatch(setCartId(data.cartId));
     })();
   }, [countBooksChange, changeBetweenCartWishlist]);
 
@@ -116,21 +118,8 @@ export const CardResume = () => {
     refreshCartWishlist();
   };
 
-  const handleCheckout = async () => {
-    try {
-      const res = await fetch(`${apiUrl}/checkout/create-checkout-session`, {
-        credentials: "include",
-        method: "POST",
-      });
-
-      const data = await res.json();
-
-      if (res.ok) {
-        window.location = data.url;
-      }
-    } catch (error) {
-      window.alert("Transaction Failed.");
-    }
+  const handleCheckout = () => {
+    navigate(`/transaction`);
   };
 
   return (
@@ -165,18 +154,20 @@ export const CardResume = () => {
             <WishlistResume />
           </div>
         </div>
-        <div className="shopping-checkout--container">
-          <div className="shopping-checkout-box">
-            <h4>Total:</h4>
-            <p>
-              <span> $ {totalCost.toFixed(2)}</span>
-            </p>
+        {totalCost ? (
+          <div className="shopping-checkout--container">
+            <div className="shopping-checkout-box">
+              <h4>Total:</h4>
+              <p>
+                <span> $ {totalCost.toFixed(2)}</span>
+              </p>
 
-            <button className="btn btn-block" onClick={handleCheckout}>
-              Checkout
-            </button>
+              <button className="btn btn-block" onClick={handleCheckout}>
+                Checkout
+              </button>
+            </div>
           </div>
-        </div>
+        ) : null}
       </div>
     </section>
   );
