@@ -6,8 +6,8 @@ import { GetBooksFromCartResponse } from "types";
 import { apiUrl } from "../../config/api";
 import {
   addChangeBetweenCartWishlist,
+  setBooksCost,
   setCartId,
-  setTotalCost,
 } from "../../features/cart/cartSlice";
 import { RootState } from "../../features/store";
 import { WishlistResume } from "../wishlist/WishlistResume";
@@ -24,7 +24,7 @@ export const CardResume = () => {
   const [countBooksChange, setCountBooksChange] = useState<number>(0);
 
   const dispatch = useDispatch();
-  const { changeBetweenCartWishlist, totalCost } = useSelector(
+  const { changeBetweenCartWishlist, booksCost: totalCost } = useSelector(
     (store: RootState) => store.cartWishlist
   );
 
@@ -45,7 +45,7 @@ export const CardResume = () => {
       const data = await res.json();
 
       setBooksFromCart(data.books);
-      dispatch(setTotalCost(data.totalCost));
+      dispatch(setBooksCost(data.totalCost));
       dispatch(setCartId(data.cartId));
     })();
   }, [countBooksChange, changeBetweenCartWishlist]);

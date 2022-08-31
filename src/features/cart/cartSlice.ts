@@ -3,13 +3,13 @@ import { createSlice } from "@reduxjs/toolkit";
 export interface CartChangeStateInterface {
   changeBetweenCartWishlist: number;
   cartId: string | null;
-  totalCost: number;
+  booksCost: number;
 }
 
 const initialState: CartChangeStateInterface = {
   changeBetweenCartWishlist: 0,
   cartId: null,
-  totalCost: 0,
+  booksCost: 0,
 };
 
 interface AddChangeBetweenCartWishlist {
@@ -37,8 +37,8 @@ export const cartWishlistSlice = createSlice({
     setCartId: (state, action: SetCartId) => {
       state.cartId = action.payload;
     },
-    setTotalCost: (state, action: SetTotalCost) => {
-      state.totalCost = action.payload;
+    setBooksCost: (state, action: SetTotalCost) => {
+      state.booksCost = action.payload;
     },
   },
 });
@@ -46,5 +46,5 @@ export const cartWishlistSlice = createSlice({
 export const {
   addChangeBetweenCartWishlist,
   setCartId,
-  setTotalCost,
+  setBooksCost,
 } = cartWishlistSlice.actions;

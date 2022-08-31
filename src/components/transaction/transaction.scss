@@ -1,0 +1,267 @@
+.transaction__container {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
+    "list checkout"
+    "list checkout"
+  ;
+
+  @media (max-width:800px) {
+    grid-template-areas:
+      "list list"
+      "checkout checkout"
+    ;
+  }
+
+
+  h3 {
+    font-size: 2rem;
+    letter-spacing: 1.8px;
+    text-transform: initial;
+  }
+}
+
+.checkout-lists-group {
+  grid-area: list;
+  display: flex;
+  flex-direction: column;
+}
+
+.address-form {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-wrap: wrap;
+
+  h3 {
+    flex-basis: 100%;
+  }
+
+  p {
+    font-size: 1.5rem;
+    line-height: 4rem;
+    font-style: italic;
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  span {
+    display: inline-block;
+    font-size: 1.5rem;
+    margin-right: 1rem;
+  }
+
+  input {
+    margin: 1rem 0;
+    display: block;
+    height: 3rem;
+    width: 100%;
+    border: 1px solid #777;
+    background-color: #eee;
+    text-align: left;
+    text-transform: initial;
+  }
+
+
+  .box-group {
+    margin: 1rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    select {
+      width: 80%;
+      height: 3rem;
+      border: 1px solid #777;
+      background-color: #eee;
+    }
+
+    .m-l {
+      margin-left: 2rem;
+    }
+  }
+}
+
+.order-info__container {
+
+
+  margin-bottom: 2rem;
+
+  h2 {
+    font-size: 2rem;
+    letter-spacing: 1.8px;
+    text-transform: initial;
+  }
+
+  p {
+    font-size: 1.5rem;
+    line-height: 4rem;
+    font-style: italic;
+    text-decoration: none;
+    font-weight: 600;
+    text-transform: initial;
+  }
+
+  div {
+    font-size: 1.5rem;
+    margin: 1rem;
+    margin-left: 2rem;
+    text-transform: initial;
+  }
+
+  h3 {
+    margin-top: 4rem;
+    font-weight: 600;
+    text-transform: initial;
+  }
+
+  h4 {
+    margin-top: 2rem;
+    font-size: 2rem;
+    letter-spacing: 1.8px;
+    font-weight: 600;
+    text-transform: initial;
+  }
+
+  label {
+    display: flex;
+    align-items: center;
+
+    p {
+      padding: 1rem;
+      cursor: pointer;
+      text-transform: initial;
+      user-select: none;
+
+    }
+  }
+
+  span {
+    @extend p;
+    display: block;
+    line-height: unset;
+    font-style: normal;
+    text-transform: initial;
+    // color: #333;
+    font-weight: 200;
+    font-size: 1.4rem;
+  }
+
+  .btn-order-info {
+    margin-right: 2rem;
+    padding: 1rem 1rem;
+    font-size: 1.8rem;
+    font-weight: 400;
+    text-transform: initial;
+    color: #1e8449;
+    cursor: pointer;
+    background-color: #fff;
+  }
+
+}
+
+.offers__container {
+  h3 {
+    margin-top: 2rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    text-transform: initial;
+  }
+
+  .offer-one {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 1rem;
+    font-size: 1.8rem;
+    cursor: pointer;
+    transform: 0.3s;
+
+    &:hover {
+      .book-title {
+        text-decoration: underline;
+      }
+    }
+
+    .book-short-info {
+
+
+      .book-count-price {
+        margin-left: 2rem;
+        font-size: 1.5rem;
+        text-transform: initial;
+        font-weight: 200;
+      }
+    }
+
+
+    .book-price {
+      display: flex;
+      align-items: flex-end;
+      font-size: 1.5rem;
+    }
+  }
+}
+
+.checkout-resume-container {
+  grid-area: checkout;
+  // background-color: #edfedf;
+
+  h3 {
+    margin-top: 2rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    text-transform: initial;
+
+  }
+
+  .checkout-value {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    // margin: 0.5rem;
+    font-size: 1.8rem;
+    transform: 0.3s;
+  }
+
+  .checkout-resume-box {
+    border-bottom: 1px solid #333;
+  }
+
+  .checkout-value-resume {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin: 1rem 0;
+    font-size: 3rem;
+    transform: 0.3s;
+
+    @media (min-width:990px) {
+      font-size: 2.2rem;
+    }
+
+    p {
+      display: block;
+      margin-right: 2rem;
+      font-size: 2rem;
+      font-weight: 200;
+    }
+  }
+}
+
+.btn-checkout {
+  margin-top: 1rem;
+  display: inline-block;
+  padding: 0.9rem 3rem;
+  width: 100%;
+  border-radius: 0.5rem;
+  color: #fff;
+  background-color: #27ae60;
+  font-size: 1.7rem;
+  text-align: center;
+  cursor: pointer;
+  font-weight: 600;
+  text-transform: uppercase;
+}
