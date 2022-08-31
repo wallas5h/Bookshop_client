@@ -21,9 +21,19 @@ export const AddressForm = () => {
     country: "PL",
     areaCode: "48",
     phone: "",
+    email: "",
   });
 
-  const { name, street, city, postcode, country, areaCode, phone } = formData;
+  const {
+    name,
+    street,
+    city,
+    postcode,
+    country,
+    areaCode,
+    phone,
+    email,
+  } = formData;
 
   const change = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setFormData((prev) => ({
@@ -39,69 +49,83 @@ export const AddressForm = () => {
   };
 
   return (
-    <div className="address-form">
-      <form onSubmit={formSubmit}>
-        <p>Please fill form bellow</p>
-        <span>Full name:</span>
-        <input
-          type="text"
-          name="name"
-          value={name}
-          onChange={change}
-          required
-        />
-        <span>Street:</span>
-        <input
-          type="text"
-          name="street"
-          id="street"
-          value={street}
-          onChange={change}
-          required
-        />
-
-        <div className="box-group">
-          <span>City:</span>
+    <>
+      <div className="address-form">
+        <h3>Recipent's details</h3>
+        <form onSubmit={formSubmit}>
+          <p>Please fill form bellow</p>
+          <span>Full name:</span>
           <input
             type="text"
-            name="city"
-            value={city}
+            name="name"
+            value={name}
             onChange={change}
             required
           />
-
-          <span className="m-l">ZIP/ postcode:</span>
+          <span>Street:</span>
           <input
             type="text"
-            name="postcode"
-            value={postcode}
+            name="street"
+            id="street"
+            value={street}
             onChange={change}
             required
           />
-        </div>
-        <div className="box-group">
-          <span>Country:</span>
-          <CountrySelect value={country} change={change} />
-        </div>
 
-        <div className="box-group">
-          <span>Area code:</span>
-          <AreaCodeSelect value={areaCode} change={change} />
+          <div className="box-group">
+            <span>City:</span>
+            <input
+              type="text"
+              name="city"
+              value={city}
+              onChange={change}
+              required
+            />
 
-          <span className="m-l">Phone:</span>
-          <input
-            type="string"
-            name="phone"
-            value={phone}
-            onChange={change}
-            required
-          />
-        </div>
+            <span className="m-l">ZIP/ postcode:</span>
+            <input
+              type="text"
+              name="postcode"
+              value={postcode}
+              onChange={change}
+              required
+            />
+          </div>
+          <div className="box-group">
+            <span>Country:</span>
+            <CountrySelect value={country} change={change} />
+          </div>
 
-        <button type="submit" className="btn btn-block">
-          Submit
-        </button>
-      </form>
-    </div>
+          <div className="box-group">
+            <span>Area code:</span>
+            <AreaCodeSelect value={areaCode} change={change} />
+
+            <span className="m-l">Phone:</span>
+            <input
+              type="string"
+              name="phone"
+              value={phone}
+              onChange={change}
+              required
+            />
+          </div>
+          <div className="box-group">
+            <span>Email:</span>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              value={email}
+              onChange={change}
+              required
+            />
+          </div>
+
+          <button type="submit" className="btn btn-block">
+            Submit
+          </button>
+        </form>
+      </div>
+    </>
   );
 };

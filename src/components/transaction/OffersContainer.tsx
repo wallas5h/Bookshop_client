@@ -10,7 +10,7 @@ export const OffersContainer = () => {
 
   useEffect(() => {
     (async () => {
-      const res = await fetch(`${apiUrl}/cart`, {
+      const res = await fetch(`${apiUrl}/cart/checkout`, {
         method: "GET",
         credentials: "include",
         headers: {

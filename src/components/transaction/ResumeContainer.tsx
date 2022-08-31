@@ -3,8 +3,12 @@ import { apiUrl } from "../../config/api";
 import { RootState } from "../../features/store";
 
 export const ResumeContainer = () => {
-  const { cartId, totalCost } = useSelector(
+  const { cartId, booksCost } = useSelector(
     (store: RootState) => store.cartWishlist
+  );
+
+  const { deliveryCost, deliveryName, paymentMethodType } = useSelector(
+    (store: RootState) => store.payment
   );
 
   const handleCheckout = async () => {
@@ -12,6 +16,14 @@ export const ResumeContainer = () => {
       const res = await fetch(`${apiUrl}/checkout/create-checkout-session`, {
         credentials: "include",
         method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          deliveryCost,
+          deliveryName,
+          paymentMethodType,
+        }),
       });
 
       const data = await res.json();
@@ -19,6 +31,8 @@ export const ResumeContainer = () => {
       if (res.ok) {
         window.location = data.url;
       }
+
+      // strzal do api w celu zmniejszenia liczby dostepnych ksiązek
     } catch (error) {
       window.alert("Transaction Failed.");
     }
@@ -26,16 +40,41 @@ export const ResumeContainer = () => {
 
   return (
     <div className="checkout-resume-container">
-      <div className="shopping-checkout-box">
-        <h4>Total:</h4>
-        <p>
-          <span> $ {totalCost.toFixed(2)}</span>
-        </p>
+      <div className="checkout-resume-box">
+        <h3>Summary:</h3>
 
-        <button className="btn btn-block" onClick={handleCheckout}>
-          Checkout
-        </button>
+        <div className="checkout-value checkout-value-items">
+          <div>
+            <p>Value of items</p>
+          </div>
+          <div>
+            <p>$ {booksCost.toFixed(2)}</p>
+          </div>
+        </div>
+        <div className="checkout-value checkout-value-delivery">
+          <div>
+            <p>Delivery</p>
+          </div>
+          <div>
+            <p>$ {deliveryCost.toFixed(2)}</p>
+          </div>
+        </div>
+        <div className="checkout-value checkout-value-delivery-discount">
+          <div>
+            <p></p>
+          </div>
+          <div></div>
+        </div>
       </div>
+      <div className="checkout-value-resume">
+        <div>
+          <p>PAYMENT AMOUNT</p>
+        </div>
+        <div>$ {(booksCost + deliveryCost).toFixed(2)}</div>
+      </div>
+      <button className="btn-checkout" onClick={handleCheckout}>
+        Buy and pay
+      </button>
     </div>
   );
 };
