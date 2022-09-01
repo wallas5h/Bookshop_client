@@ -6,6 +6,8 @@
   padding: 2rem;
   margin: 2rem 0;
   text-align: center;
+  cursor: pointer;
+  user-select: none;
 
   &:hover {
     border: $border-hover;
@@ -31,16 +33,24 @@
     padding: 1.5rem;
 
     h3 {
+      display: block;
       color: $black;
       font-size: 2.5rem;
+      height: 7rem;
+      overflow: hidden;
       // padding-bottom: .5rem 0;
     }
 
     p {
+      display: inline-block;
+      height: 6rem;
       color: $light-color;
       font-size: 1.4rem;
       line-height: 2;
       padding: 1rem 0;
+      text-overflow: ellipsis;
+      // white-space: nowrap;
+      overflow: hidden;
     }
   }
 

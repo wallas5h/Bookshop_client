@@ -1,18 +1,25 @@
-import './box.scss';
+import "./box.scss";
 
+interface Props {
+  img: string;
+  title: string;
+  description: string;
+  link: string;
+}
 
-export const Box = () => {
-
+export const Box = ({ img, title, description, link }: Props) => {
   return (
-    <div className="box__blog">
+    <div className="box__blog" onClick={() => window.open(link, "_blank")}>
       <div className="image">
-        <img src='https://wallas5h.github.io/photos_bookshop/images/blog-1.jpg' alt="" />
+        <img src={img} alt="" />
       </div>
       <div className="content">
-        <h3>blog title goes here</h3>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio, odio.</p>
-        <a href="#" className="btn">read more</a>
+        <h3>{title}</h3>
+        <p>{description}</p>
+        {/* <a href={link} className="btn">
+          read more
+        </a> */}
       </div>
     </div>
-  )
-}
+  );
+};
