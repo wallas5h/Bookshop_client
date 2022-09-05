@@ -3,8 +3,11 @@ import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 import {
   AddBookContainer,
+  AdminContainer,
   BookContainer,
   CartContainer,
+  EditComponent,
+  LoginContainer,
   OrderCanceled,
   OrderSuccess,
   Register,
@@ -14,7 +17,7 @@ import {
   TransactionContainer,
   WishlistContainer,
 } from "./components";
-import { LoginContainer } from "./components/login/LoginContainer";
+
 import { HomeContainer } from "./containers/home/HomeContainer";
 
 export const Routing = () => {
@@ -34,6 +37,8 @@ export const Routing = () => {
         <Route path="/payment/success" element={<OrderSuccess />} />
         <Route path="/payment/cancel" element={<OrderCanceled />} />
         <Route path="/transaction" element={<TransactionContainer />} />
+        <Route path="/admin" element={<AdminContainer />} />
+        <Route path="/edit/:id" element={<EditComponent />} />
       </Routes>
     </>
   );
