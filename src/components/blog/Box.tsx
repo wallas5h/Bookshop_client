@@ -16,9 +16,6 @@ export const Box = ({ img, title, description, link }: Props) => {
       <div className="content">
         <h3>{title}</h3>
         <p>{description}</p>
-        {/* <a href={link} className="btn">
-          read more
-        </a> */}
       </div>
     </div>
   );

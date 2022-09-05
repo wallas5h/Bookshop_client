@@ -1,0 +1,117 @@
+.cart-one {
+  display: grid;
+  grid-template-columns: auto minmax(200px, 400px) auto auto;
+  grid-template-rows: repeat(3, auto);
+  grid-template-areas:
+    " img info action price"
+    " img info action price"
+    " img info action price"
+  ;
+
+  @media (max-width: 600px) {
+    grid-template-columns: auto 1fr auto;
+    grid-template-areas:
+      " img info  info"
+      " img price price"
+      " action action action"
+    ;
+  }
+
+  border-bottom: 1px solid #555;
+  padding-bottom: 3rem;
+  margin: 2rem 0;
+
+  img {
+    grid-area: img;
+    width: 100px;
+    height: 150px;
+    margin-right: 2rem;
+    cursor: pointer;
+  }
+
+  .book-short-info {
+    grid-area: info;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    h4 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: #000;
+      cursor: pointer;
+    }
+
+    span {
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: #333;
+    }
+
+    .book-quantity {
+      margin-top: 2rem;
+      text-transform: none;
+
+      em {
+        text-transform: none;
+        color: red;
+      }
+    }
+  }
+
+
+  .book-price {
+    grid-area: price;
+
+    display: flex;
+    flex-direction: column;
+    margin-right: 4rem;
+    align-items: center;
+    // justify-content: center;
+
+    @media (max-width: 850px) {
+      align-items: start;
+    }
+
+    @media (max-width: 600px) {
+      flex-direction: row;
+    }
+
+    div {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      margin-right: 1rem;
+    }
+
+    &-current {
+      margin-right: 1rem;
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: green;
+    }
+
+    &-old {
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: #777;
+      text-decoration: line-through;
+    }
+  }
+
+
+  .book-action {
+    grid-area: action;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-top: 1rem;
+    // margin: 0 4rem;
+    margin-right: 4rem;
+
+    @media (max-width:600px) {
+      flex-direction: row;
+      justify-content: space-evenly;
+    }
+
+  }
+}
