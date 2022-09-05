@@ -12,7 +12,9 @@ import {
   REHYDRATE,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import { adminAuthSlice } from "../admin/adminAuthSlice";
 import { cartWishlistSlice } from "../cart/cartSlice";
+import { defaultPropsSlice } from "../defaultProps/defaultPropsSlice";
 import { paymentSlice } from "../payment/paymentSlice";
 import { searchSlice } from "../search/searchSlice";
 
@@ -21,6 +23,8 @@ const Reducer = combineReducers({
   cartWishlist: cartWishlistSlice.reducer,
   search: searchSlice.reducer,
   payment: paymentSlice.reducer,
+  adminAuth: adminAuthSlice.reducer,
+  defaultProps: defaultPropsSlice.reducer,
 });
 
 const persistConfig = {
