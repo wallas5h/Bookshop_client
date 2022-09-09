@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { RiCloseLine, RiMenu3Line } from "react-icons/ri";
+import "./adminNavbar.scss";
 
 export const AdminNavbarMenu = () => {
   const [toggleActive, setToggleActive] = useState(false);
