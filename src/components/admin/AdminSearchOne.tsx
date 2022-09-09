@@ -68,7 +68,9 @@ export const AdminSearchOne = (props: Props) => {
     }
   };
 
-  const editInDb = (id: string) => {};
+  const editInDb = (id: string) => {
+    navigate(`/edit/${id}`);
+  };
 
   return (
     <div className="cart-one">
