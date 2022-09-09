@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { apiUrl } from "../../config/api";
 import { RootState } from "../../features/store";
 import { AdminHeader } from "../admin/AdminHeader";
+import { NotFoundBook } from "./NotFoundBook";
 
 interface Props {
   bookId: string;
@@ -17,14 +18,14 @@ export const EditBookForm = ({ bookId }: Props) => {
   const [formData, setFormData] = useState({
     _id: "",
     title: "",
-    categoty: "",
+    category: "",
     author: "",
     description: "",
     imageURL: "",
     newPrice: 0,
     oldPrice: 0,
     count: 0,
-    active: true,
+    active: "",
   });
 
   useEffect(() => {
@@ -39,13 +40,13 @@ export const EditBookForm = ({ bookId }: Props) => {
 
         const data = await res.json();
 
-        if (!data) return;
+        if (!res.ok) return;
 
         if (data) {
           setFormData({
             _id: data[0]._id,
             title: data[0].title,
-            categoty: data[0].categoty,
+            category: data[0].category,
             author: data[0].author,
             description: data[0].description,
             imageURL: data[0].imageURL,
@@ -55,10 +56,13 @@ export const EditBookForm = ({ bookId }: Props) => {
             active: data[0].active,
           });
         }
+
+        if (res.ok) {
+          setBookLoaded(true);
+        }
       } catch (error) {
         console.log(error);
       } finally {
-        setBookLoaded(true);
         setLoading(false);
       }
     })();
@@ -70,7 +74,7 @@ export const EditBookForm = ({ bookId }: Props) => {
   const {
     _id,
     title,
-    categoty: category,
+    category,
     author,
     description,
     imageURL,
@@ -115,7 +119,19 @@ export const EditBookForm = ({ bookId }: Props) => {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div
+        style={{
+          height: "100vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          fontSize: "2rem",
+        }}
+      >
+        Loading...
+      </div>
+    );
   }
 
   return (
@@ -136,7 +152,6 @@ export const EditBookForm = ({ bookId }: Props) => {
                 className="box"
                 name="category"
                 onChange={change}
-                value={category}
                 defaultValue={category}
               >
                 <option value="">--Choice category--</option>
@@ -161,7 +176,6 @@ export const EditBookForm = ({ bookId }: Props) => {
                 onChange={change}
                 maxLength={50}
                 required
-                // defaultValue={title}
               />
               <span>Author</span>
               <input
@@ -173,7 +187,6 @@ export const EditBookForm = ({ bookId }: Props) => {
                 onChange={change}
                 maxLength={50}
                 required
-                // defaultValue={author}
               />
 
               <span>Description</span>
@@ -184,7 +197,6 @@ export const EditBookForm = ({ bookId }: Props) => {
                 value={description}
                 onChange={change}
                 maxLength={1000}
-                // defaultValue={description}
               />
               <span>The newest price</span>
               <input
@@ -197,7 +209,6 @@ export const EditBookForm = ({ bookId }: Props) => {
                 min="0"
                 max={99999}
                 required
-                // defaultValue={newPrice}
               />
               <span>Old price</span>
               <input
@@ -209,7 +220,6 @@ export const EditBookForm = ({ bookId }: Props) => {
                 onChange={change}
                 min="0"
                 max={99999}
-                // defaultValue={oldPrice}
               />
               <span>Count</span>
               <input
@@ -221,7 +231,6 @@ export const EditBookForm = ({ bookId }: Props) => {
                 onChange={change}
                 min="0"
                 max={99999}
-                // defaultValue={count}
               />
               <span>Image link</span>
               <input
@@ -231,29 +240,28 @@ export const EditBookForm = ({ bookId }: Props) => {
                 placeholder="image url link"
                 value={imageURL}
                 onChange={change}
-                // defaultValue={imageURL}
               />
 
               <span>Active</span>
+
               <select
                 className="box"
                 name="active"
                 onChange={change}
-                // value={active}
-                // defaultValue={active}
+                defaultValue={active}
               >
                 <option value="true">true</option>
                 <option value="false">false</option>
               </select>
 
               <button type="submit" className="btn btn-block">
-                Edit book
+                Save
               </button>
             </form>
           </div>
         </div>
       ) : (
-        <h2>Book not loaded</h2>
+        <NotFoundBook />
       )}
     </>
   );
