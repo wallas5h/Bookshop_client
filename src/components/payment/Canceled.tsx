@@ -8,7 +8,7 @@ export const OrderCanceled = () => {
 
   useEffect(() => {
     setTimeout(() => {
-      navigate("/transaction");
+      navigate("/cart");
     }, 5000);
   }, []);
 
@@ -27,10 +27,7 @@ export const OrderCanceled = () => {
       </div>
       <span></span>
       <div>
-        <button
-          className="btn-login--info"
-          onClick={() => navigate("/transaction")}
-        >
+        <button className="btn-login--info" onClick={() => navigate("/cart")}>
           Go back
         </button>
       </div>
