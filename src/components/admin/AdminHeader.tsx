@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { apiUrl } from "../../config/api";
 import {
   changeAccess,
   changeAccessToken,
@@ -11,10 +13,14 @@ import {
   changeCurrentPage,
   changePhrase,
 } from "../../features/search/searchSlice";
+import { RootState } from "../../features/store";
 import { AdminNavbarMenu } from "./AdminNavbarMenu";
 
 export const AdminHeader = () => {
   const [toggleActive, setToggleActive] = useState(false);
+  const { accessToken, refreshToken, access } = useSelector(
+    (store: RootState) => store.adminAuth
+  );
 
   const [searchPhrase, setSearchPhrase] = useState<string>("");
 
@@ -26,15 +32,37 @@ export const AdminHeader = () => {
 
     dispatch(changePhrase(searchPhrase));
     dispatch(changeCurrentPage(1));
-
-    // navigate("/search");
   };
 
-  const handleCloseBtn = () => {
-    changeAccess(false);
-    dispatch(changeAccess(false));
-    dispatch(changeAccessToken(""));
-    dispatch(changeRefreshToken(""));
+  const handleLogoutBtn = () => {
+    (async () => {
+      try {
+        const res = await fetch(`${apiUrl}/admin/logout`, {
+          method: "DELETE",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+          },
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          toast.error(data.message);
+        }
+
+        if (res.ok) {
+          toast.info(data.message);
+
+          dispatch(changeAccess(false));
+          dispatch(changeAccessToken(""));
+          dispatch(changeRefreshToken(""));
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    })();
   };
 
   return (
@@ -60,7 +88,7 @@ export const AdminHeader = () => {
           <FaSearch />
         </div>
       </div>
-      <button className="btn" onClick={handleCloseBtn}>
+      <button className="btn" onClick={handleLogoutBtn}>
         Log out
       </button>
     </div>
