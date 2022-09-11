@@ -73,7 +73,8 @@ export const ResumeContainer = () => {
       </div>
       <div className="checkout-value-resume">
         <div>
-          <p>PAYMENT AMOUNT</p>
+          <p>PAYMENT</p>
+          <p>AMOUNT</p>
         </div>
         <div>
           {`${currency} `} {(booksCost + deliveryCost).toFixed(2)}

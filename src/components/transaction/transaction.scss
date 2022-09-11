@@ -233,7 +233,7 @@
   .checkout-value-resume {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: space-between;
     margin: 1rem 0;
     font-size: 3rem;
     transform: 0.3s;
@@ -244,9 +244,14 @@
 
     p {
       display: block;
-      margin-right: 2rem;
+      margin-right: 1rem;
       font-size: 2rem;
       font-weight: 200;
+
+      @media (max-width:800px) {
+        font-size: 2.2rem;
+        display: inline-block;
+      }
     }
   }
 }
