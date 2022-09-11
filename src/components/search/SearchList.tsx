@@ -6,8 +6,8 @@ import { apiUrl } from "../../config/api";
 import { changeCurrentPage } from "../../features/search/searchSlice";
 import { RootState } from "../../features/store";
 import { generateQueryString } from "../../utils/logs.utils";
-import { FeatureBook } from "../featured/Featured";
-import "./searchList.scss";
+import { FeatureBook } from "../featured/FeatureBook";
+// import "./searchList.scss";
 
 export const SearchList = () => {
   const dispatch = useDispatch();
