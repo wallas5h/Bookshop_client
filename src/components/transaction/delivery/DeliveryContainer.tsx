@@ -20,21 +20,21 @@ export const DeliveryContainer = () => {
   };
 
   useEffect(() => {
-    dispatch(setDeliveryCost(DeliveryPrice.paczkomat));
-    dispatch(setDeliveryName(DeliveryName.paczkomat));
+    dispatch(setDeliveryCost(DeliveryPrice.courier));
+    dispatch(setDeliveryName(DeliveryName.courier));
   }, []);
 
   return (
     <div className="delivery__container">
       <h3>Delivery options</h3>
-      <div className="delivery-group">
+      {/* <div className="delivery-group">
         <h4>Pick-up point</h4>
         <DeliveryOne
           title={DeliveryName.paczkomat}
           price={DeliveryPrice.paczkomat}
           change={changeDeliveryCost}
         />
-      </div>
+      </div> */}
 
       <div className="delivery-group">
         <h4>Delivery address</h4>

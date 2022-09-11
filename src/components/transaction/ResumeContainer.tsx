@@ -10,6 +10,7 @@ export const ResumeContainer = () => {
   const { deliveryCost, deliveryName, paymentMethodType } = useSelector(
     (store: RootState) => store.payment
   );
+  const { currency } = useSelector((store: RootState) => store.defaultProps);
 
   const handleCheckout = async () => {
     try {
@@ -48,7 +49,9 @@ export const ResumeContainer = () => {
             <p>Value of items</p>
           </div>
           <div>
-            <p>$ {booksCost.toFixed(2)}</p>
+            <p>
+              {`${currency} `} {booksCost.toFixed(2)}
+            </p>
           </div>
         </div>
         <div className="checkout-value checkout-value-delivery">
@@ -56,7 +59,9 @@ export const ResumeContainer = () => {
             <p>Delivery</p>
           </div>
           <div>
-            <p>$ {deliveryCost.toFixed(2)}</p>
+            <p>
+              {`${currency} `} {deliveryCost.toFixed(2)}
+            </p>
           </div>
         </div>
         <div className="checkout-value checkout-value-delivery-discount">
@@ -70,7 +75,9 @@ export const ResumeContainer = () => {
         <div>
           <p>PAYMENT AMOUNT</p>
         </div>
-        <div>$ {(booksCost + deliveryCost).toFixed(2)}</div>
+        <div>
+          {`${currency} `} {(booksCost + deliveryCost).toFixed(2)}
+        </div>
       </div>
       <button className="btn-checkout" onClick={handleCheckout}>
         Buy and pay

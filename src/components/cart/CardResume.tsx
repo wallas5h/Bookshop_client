@@ -16,6 +16,7 @@ import "./cardResume.scss";
 
 export const CardResume = () => {
   const navigate = useNavigate();
+  const { currency } = useSelector((store: RootState) => store.defaultProps);
 
   const [booksFromCart, setBooksFromCart] = useState<
     GetBooksFromCartResponse[] | []
@@ -159,7 +160,10 @@ export const CardResume = () => {
             <div className="shopping-checkout-box">
               <h4>Total:</h4>
               <p>
-                <span> $ {totalCost.toFixed(2)}</span>
+                <span>
+                  {" "}
+                  {`${currency} `} {totalCost.toFixed(2)}
+                </span>
               </p>
 
               <button className="btn btn-block" onClick={handleCheckout}>

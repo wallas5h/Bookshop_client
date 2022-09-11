@@ -20,6 +20,7 @@ export const DeliveryOne = ({ title, price, change }: Props) => {
     dispatch(setDeliveryName(title));
     change(price);
   };
+  const { currency } = useSelector((store: RootState) => store.defaultProps);
 
   return (
     <div className="deliver-one" onClick={handleClick}>
@@ -44,7 +45,10 @@ export const DeliveryOne = ({ title, price, change }: Props) => {
       </div>
 
       <div className="delivery-price">
-        <div>{`$${price.toFixed(2)}`}</div>
+        <div>
+          {`${currency} `}
+          {`${price.toFixed(2)}`}
+        </div>
       </div>
     </div>
   );
