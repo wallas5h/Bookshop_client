@@ -18,6 +18,6 @@ export enum DeliveryName {
 }
 
 export enum DeliveryPrice {
-  paczkomat = 3.99,
-  courier = 4.99,
+  paczkomat = 8.99,
+  courier = 12.99,
 }
