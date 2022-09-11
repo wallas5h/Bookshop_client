@@ -13,39 +13,61 @@ export const useRefreshTokenRequest = async () => {
   const { accessToken, refreshToken, access } = useSelector(
     (store: RootState) => store.adminAuth
   );
+  let intervalId: any;
+  const Time = 1 * 6 * 1000;
 
-  const res = await fetch(`${apiUrl}/admin/refresh-token`, {
-    method: "PUT",
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${accessToken}`,
-    },
-    body: JSON.stringify(refreshToken),
-  });
+  const ref = useRef();
+  const isRunned = useRef(false);
 
-  const data = await res.json();
+  useEffect(() => {
+    !isRunned.current &&
+      (() => {
+        if (!access) {
+          clearInterval(ref.current);
+          return;
+        }
 
-  console.log(res.ok);
+        intervalId = setInterval(() => {
+          fetchData();
+        }, Time);
+        ref.current = intervalId;
+        return () => clearInterval(intervalId);
+      })();
+    return () => {
+      isRunned.current = true;
+    };
+  }, []);
 
-  if (!res.ok) {
-    dispatch(changeAccess(false));
-    dispatch(changeAccessToken(""));
-    dispatch(changeRefreshToken(""));
-  }
+  const fetchData = async () => {
+    const res = await fetch(`${apiUrl}/admin/refresh-token`, {
+      method: "PUT",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+      body: JSON.stringify({ refreshToken }),
+    });
 
-  if (res.ok) {
-    console.log(data.accessToken);
-    dispatch(changeAccess(true));
-    dispatch(changeAccessToken(data.accessToken));
-  }
+    const data = await res.json();
+
+    if (!res.ok) {
+      console.log("res.ok problem refresh token");
+      // dispatch(changeAccess(false));
+      dispatch(changeAccessToken(""));
+      dispatch(changeRefreshToken(""));
+    }
+
+    if (res.ok) {
+      console.log(data);
+      console.log("res.ok refresh token");
+      dispatch(changeAccess(true));
+      dispatch(changeAccessToken(data.accessToken));
+    }
+  };
 };
 
 export const useCheckAccessRequest = () => {
-  // const [access,setAccess]=useState(intial)
-
-  // const navigate = useNavigate();
-
   const dispatch = useDispatch();
   const { accessToken, refreshToken, access } = useSelector(
     (store: RootState) => store.adminAuth
@@ -73,5 +95,9 @@ export const useCheckAccessRequest = () => {
           dispatch(changeAccess(true));
         }
       })();
+
+    return () => {
+      isRunned.current = true;
+    };
   }, []);
 };
