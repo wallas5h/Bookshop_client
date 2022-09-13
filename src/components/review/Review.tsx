@@ -1,22 +1,39 @@
-import { A11y, Autoplay, Navigation } from 'swiper';
-import 'swiper/css';
-import 'swiper/css/autoplay';
+import { useEffect, useRef, useState } from "react";
+import { A11y, Autoplay, Navigation } from "swiper";
+import "swiper/css";
+import "swiper/css/autoplay";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { Swiper, SwiperSlide } from "swiper/react";
 import { Box } from "./Box";
-import './review.scss';
-
-
-
+import "./review.scss";
 
 export const Review = () => {
+  const isRunned = useRef(false);
+  const [users, setUsers] = useState([]);
 
+  useEffect(() => {
+    !isRunned.current &&
+      (async () => {
+        await fetch("https://reqres.in/api/users")
+          .then((res) => res.json())
+          .then((data) => {
+            setUsers(data.data);
+          });
+      })();
+
+    return () => {
+      isRunned.current = true;
+    };
+  });
 
   return (
     <section className="reviews" id="review">
-      <h1 className="heading"> <span>client's reviews</span> </h1>
+      <h1 className="heading">
+        {" "}
+        <span>client's reviews</span>{" "}
+      </h1>
 
       <div className="review-slider">
         <Swiper
@@ -25,7 +42,7 @@ export const Review = () => {
           loop={true}
           navigation
           autoplay={{
-            delay: 5500
+            delay: 5500,
           }}
           breakpoints={{
             450: {
@@ -42,23 +59,15 @@ export const Review = () => {
             },
           }}
         >
-          <SwiperSlide>
-            <Box />
-          </SwiperSlide>
-          <SwiperSlide>
-            <Box />
-          </SwiperSlide>
-          <SwiperSlide>
-            <Box />
-          </SwiperSlide>
-
-
+          {users
+            ? users.map((user, index) => (
+                <SwiperSlide key={index}>
+                  <Box key={index} user={user} />
+                </SwiperSlide>
+              ))
+            : ""}
         </Swiper>
-
-
       </div>
-
-
     </section>
-  )
-}
+  );
+};
