@@ -1,13 +1,30 @@
-import { Autoplay } from 'swiper';
-import 'swiper/css';
-import 'swiper/css/autoplay';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import './home.scss';
-import { book1, book2, book3, book4, book5, book6, stand } from './imports';
+import { useEffect, useState } from "react";
+import { Autoplay } from "swiper";
+import "swiper/css";
+import "swiper/css/autoplay";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { BookResponseEntity } from "types";
+import { apiUrl } from "../../config/api";
+import "./home.scss";
 
+import { stand } from "./imports";
 
 export const Home = () => {
+  const [books, setBooks] = useState<BookResponseEntity[]>([]);
 
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await fetch(`${apiUrl}/book/feature`);
+
+        const data = await res.json();
+
+        setBooks(data);
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }, []);
 
   return (
     <>
@@ -15,11 +32,15 @@ export const Home = () => {
         <div className="row">
           <div className="content">
             <h3>upto 75% off</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam deserunt nostrum accusamus. Nam alias sit
-              necessitatibus, aliquid ex minima at!</p>
-            <a href="/cart/resume" className="btn">shop now</a>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam
+              deserunt nostrum accusamus. Nam alias sit necessitatibus, aliquid
+              ex minima at!
+            </p>
+            <a href="/search" className="btn">
+              shop now
+            </a>
           </div>
-
 
           <div className="books-slider">
             <Swiper
@@ -27,7 +48,7 @@ export const Home = () => {
               spaceBetween={20}
               loop={true}
               autoplay={{
-                delay: 2500
+                delay: 2500,
               }}
               breakpoints={{
                 450: {
@@ -44,30 +65,20 @@ export const Home = () => {
                 },
               }}
             >
-
-              <SwiperSlide>
-                <a href=""><img src={book1} alt="book" /></a>
-              </SwiperSlide>
-              <SwiperSlide>
-                <a href=""><img src={book2} alt="book" /></a>
-              </SwiperSlide>
-              <SwiperSlide>
-                <a href=""><img src={book3} alt="book" /></a>
-              </SwiperSlide>
-              <SwiperSlide>
-                <a href=""><img src={book4} alt="book" /></a>
-              </SwiperSlide>
-              <SwiperSlide>
-                <a href=""><img src={book5} alt="book" /></a>
-              </SwiperSlide>
-              <SwiperSlide>
-                <a href=""><img src={book6} alt="book" /></a>
-              </SwiperSlide>
-              <img src={stand} className='stand' alt="stand" />
+              {books
+                ? books.map((book) => (
+                    <SwiperSlide key={book._id}>
+                      <a href={`book/${book._id}`}>
+                        <img src={book.imageURL} alt={book.title} />
+                      </a>
+                    </SwiperSlide>
+                  ))
+                : ""}
+              <img src={stand} className="stand" alt="stand" />
             </Swiper>
           </div>
         </div>
       </section>
     </>
-  )
-}
+  );
+};
