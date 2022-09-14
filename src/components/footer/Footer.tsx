@@ -61,7 +61,6 @@ export const Footer = () => {
             <a href="#">
               <FaPhone /> +111-222-3333{" "}
             </a>
-            {/* <img src='https://wallas5h.github.io/photos_bookshop/images/worldmap.png' className="map" alt="" loading="lazy" /> */}
           </div>
         </div>
 

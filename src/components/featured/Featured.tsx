@@ -42,7 +42,7 @@ export const Featured = () => {
           navigation
           breakpoints={{
             450: {
-              slidesPerView: 2,
+              slidesPerView: 1,
             },
             500: {
               slidesPerView: 2,

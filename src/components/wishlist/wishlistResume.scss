@@ -83,6 +83,10 @@
             margin-top: 2rem;
             text-transform: none;
 
+            @media (max-width: 600px) {
+              display: none;
+            }
+
             em {
               text-transform: none;
               color: red;
@@ -105,13 +109,17 @@
           }
 
           @media (max-width: 600px) {
-            flex-direction: row;
+            justify-content: center;
           }
 
           div {
             font-size: 2rem;
             margin-bottom: 1rem;
             margin-right: 1rem;
+
+            @media (max-width: 600px) {
+              display: none;
+            }
           }
 
           &-current {

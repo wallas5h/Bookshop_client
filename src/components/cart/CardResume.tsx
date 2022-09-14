@@ -12,7 +12,7 @@ import {
 import { RootState } from "../../features/store";
 import { WishlistResume } from "../wishlist/WishlistResume";
 import { CartOne } from "./CardOne";
-import "./cardResume.scss";
+import "./cartResume.scss";
 
 export const CardResume = () => {
   const navigate = useNavigate();

@@ -5,7 +5,17 @@
   grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
   gap: 1.5rem;
 
+  @media (max-width:500px) {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
   .box {
+    @media (max-width:500px) {
+      width: 100%;
+    }
+
     h3 {
       font-size: 2.2rem;
       color: $black;

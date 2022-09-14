@@ -6,6 +6,10 @@
   grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
   gap: 1.5rem;
 
+  @media (max-width:500px) {
+    margin-left: 4rem;
+  }
+
   .icons {
     display: flex;
     justify-content: flex-start;

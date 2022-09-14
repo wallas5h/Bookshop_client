@@ -5,6 +5,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import { Swiper, SwiperSlide } from "swiper/react";
+import "./blog.scss";
 import { booksDesc, booksImg, booksLink, booksTitle } from "./books.utils";
 import { Box } from "./Box";
 
@@ -22,7 +23,7 @@ export const Blog = () => {
           spaceBetween={20}
           loop={true}
           autoplay={{
-            delay: 5500,
+            delay: 2500,
           }}
           breakpoints={{
             450: {

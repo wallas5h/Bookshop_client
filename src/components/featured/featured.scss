@@ -102,4 +102,16 @@
     }
   }
 
+
+
+}
+
+.featured-slider {
+
+  @media (max-width:500px) {
+    .swiper-slide-active {
+      display: flex;
+      justify-content: center;
+    }
+  }
 }

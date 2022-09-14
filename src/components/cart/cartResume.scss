@@ -56,12 +56,25 @@
 
         @media (max-width: 1150px) {
           grid-template-columns: auto 1fr auto auto;
+          grid-template-rows: repeat(5, auto);
           grid-template-areas:
             " img info info price"
             " img info info price"
             " img count count price"
             " img quant quant price"
             " action action action price"
+          ;
+        }
+
+        @media (max-width: 600px) {
+          grid-template-columns: auto 1fr auto auto;
+          // grid-template-rows: repeat(5, auto);
+          grid-template-areas:
+            " img info info info"
+            " img info info info"
+            " img info info info"
+            " count count price price"
+            " action action action action"
           ;
         }
 
@@ -112,6 +125,11 @@
             margin: 0;
           }
 
+          @media (max-width:600px) {
+            margin: 2rem 0;
+            justify-content: center;
+          }
+
           div {
             font-size: 1.5rem;
             // margin-bottom: 2rem;
@@ -153,6 +171,10 @@
           font-weight: 400;
           color: #333;
 
+          @media(max-width:600px) {
+            display: none;
+          }
+
           em {
             text-transform: none;
             color: red;
@@ -173,9 +195,19 @@
             align-items: start;
           }
 
+          @media(max-width:600px) {
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+          }
+
           div {
             font-size: 1.5rem;
             margin-bottom: 1rem;
+
+            @media(max-width:600px) {
+              display: none;
+            }
           }
 
           &-current {
@@ -189,6 +221,10 @@
             font-weight: 400;
             color: #777;
             text-decoration: line-through;
+
+            @media(max-width: 600px) {
+              display: none;
+            }
           }
         }
 
@@ -227,6 +263,7 @@
 
     .shopping-list--cart--wishlisted {
       @extend .shopping-list--cart;
+      margin-top: 5rem;
 
       section {
         padding: 0 0;
