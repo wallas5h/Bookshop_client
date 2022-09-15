@@ -85,7 +85,9 @@ export const OrderSuccess = () => {
       <h3 style={{ color: "green", fontSize: "6rem" }}>
         <AiFillCheckCircle />{" "}
       </h3>
-      <div className="log-info">Your payment was successfull. </div>
+      <div className="log-info">
+        Your payment was successfull. Check your email for receipt.
+      </div>
       <span></span>
       <div>
         <button className="btn-login--info" onClick={() => navigate("/")}>
