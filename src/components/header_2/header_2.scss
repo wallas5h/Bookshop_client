@@ -1,0 +1,33 @@
+@import '../../index.scss';
+
+.header-2 {
+  background-color: $green;
+
+  &.active {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+  }
+
+  @media (max-width: 768px) {
+    display: none;
+  }
+
+  .navbar {
+    text-align: center;
+
+    a {
+      color: #fff;
+      display: inline-block;
+      padding: 1.2rem;
+      font-size: 1.7rem;
+
+      &:hover {
+        color: $dark-color;
+      }
+    }
+  }
+
+}

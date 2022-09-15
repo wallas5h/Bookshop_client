@@ -1,0 +1,9 @@
+.review-slider {
+
+  @media (max-width:500px) {
+    .swiper-slide {
+      display: flex;
+      justify-content: center;
+    }
+  }
+}

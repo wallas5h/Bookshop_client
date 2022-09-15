@@ -1,0 +1,97 @@
+@import '../../index.scss';
+
+
+.header-1 {
+  background-color: #fff;
+  padding: 1.5rem 9%;
+  @extend %flex-center;
+  justify-content: space-between;
+
+  @media (max-width:991px) {
+    padding: 2rem;
+  }
+
+  @media (max-width:768px) {
+    box-shadow: $box-shadow;
+    position: relative;
+  }
+
+  .logo {
+    font-size: 2.5rem;
+    font-weight: bolder;
+    color: $black;
+    @extend %flex-center;
+
+    svg {
+      color: $green;
+    }
+  }
+
+  .search-form {
+    width: 50rem;
+    height: 5rem;
+    border: $border;
+    overflow: hidden;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    border-radius: .5rem;
+
+    @media (max-width:768px) {
+      position: absolute;
+      top: -115%;
+      right: 2rem;
+      width: 90%;
+      box-shadow: $box-shadow;
+
+      &.active {
+        top: 115%;
+      }
+    }
+
+    input {
+      font-size: 1.6rem;
+      padding: 0 1.2rem;
+      height: 100%;
+      width: 100%;
+      text-transform: none;
+      color: $black;
+    }
+
+    label {
+      font-size: 2.5rem;
+      padding-right: 1.5rem;
+      color: $black;
+      cursor: pointer;
+      @extend %flex-center;
+
+      &:hover {
+        color: $green;
+      }
+    }
+  }
+
+  .icons {
+    @extend %flex-center;
+
+    div,
+    a {
+      font-size: 2.5rem;
+      margin-left: 1.5rem;
+      color: $black;
+      cursor: pointer;
+
+      &:hover {
+        color: $green;
+      }
+    }
+
+    #search-btn {
+      display: none;
+
+      @media (max-width:768px) {
+        display: inline-block;
+      }
+    }
+  }
+}

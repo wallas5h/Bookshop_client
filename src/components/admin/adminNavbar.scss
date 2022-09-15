@@ -1,0 +1,31 @@
+@import '../../index.scss';
+
+.navbar-menu_container {
+  position: absolute;
+  // top: 110%;
+  left: 2rem;
+  width: 50%;
+  box-shadow: $box-shadow;
+  z-index: 1;
+  background-color: #fff;
+
+  .navbar-menu_container-links {
+    div {
+
+
+      a {
+        display: inline-block;
+        width: 100%;
+        padding: 1rem 0;
+        font-size: 1.5rem;
+        padding-left: 1rem;
+        color: #333;
+        font-weight: bold;
+
+        &:hover {
+          background-color: lightgreen;
+        }
+      }
+    }
+  }
+}

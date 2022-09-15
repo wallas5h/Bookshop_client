@@ -1,0 +1,59 @@
+.pay-method__container {
+  h3 {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+    letter-spacing: 1.8px;
+    font-weight: 600;
+    text-transform: initial;
+  }
+
+  .pay-method-group {
+    display: flex;
+    flex-direction: column;
+
+    .pay-one-container {
+      flex-basis: 100%;
+      border: 1px solid #444;
+      border-color: none;
+      margin: 0.5rem 0;
+      cursor: pointer;
+
+      &.selected {
+        border: 1px solid green;
+        background-color: lighten($color: #27ae60, $amount: 55%);
+      }
+
+      &:hover {
+        background-color: lighten($color: #27ae60, $amount: 55%);
+      }
+
+
+      .wrapper {
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        width: 100%;
+        height: 4rem;
+        margin: 0.5rem 0;
+
+        img {
+          display: inline-block;
+          // height: 4rem;
+          width: 4rem;
+          margin: 0.2rem 2rem;
+        }
+
+        span {
+          font-size: 1.5rem;
+          line-height: 100%;
+        }
+      }
+    }
+  }
+
+}
+
+.pay-one-container.selected {
+  border: 2px solid #27ae60;
+}

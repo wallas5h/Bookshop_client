@@ -1,0 +1,70 @@
+@import '../../index.scss';
+
+.home {
+  background: url(../../assets/images/banner-bg.jpg) no-repeat;
+  background-size: cover;
+  background-position: center;
+
+  .row {
+    @extend %flex-center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1.5;
+
+    .content {
+      flex: 1 1 42rem;
+
+      @media (max-width: 790px) {
+        text-align: center;
+      }
+
+      h3 {
+        color: $black;
+        font-size: 4.5rem;
+
+        @media (max-width:768px) {
+          font-size: 3.5rem;
+        }
+      }
+
+      p {
+        color: $light-color;
+        font-size: 1.4rem;
+        line-height: 2;
+        padding: 1rem 0;
+      }
+
+    }
+
+
+
+
+    .books-slider {
+      width: 50%;
+      flex: 1 1 42rem;
+      text-align: center;
+      margin-top: 2rem;
+      // display: flex;
+      // justify-content: space-between;
+
+      a {
+
+        img {
+          height: 25rem;
+        }
+
+        &:hover {
+          img {
+            transform: scale(.9);
+          }
+        }
+      }
+    }
+
+    .stand {
+      width: 100%;
+      margin-top: -2rem;
+    }
+
+  }
+}

@@ -1,0 +1,93 @@
+@import '../../index.scss';
+
+.book-container {
+  padding: 5rem 9%;
+  min-height: 50vh;
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 3.5rem;
+
+  @media (max-width:991px) {
+    padding: 3rem 2rem;
+  }
+
+  .content {
+    flex: 1 1 42rem;
+
+    p {
+      font-size: 1.5rem;
+    }
+
+    h3 {
+      color: $black;
+      font-size: 3.5rem;
+      padding-bottom: .5rem;
+
+      @media (max-width:768px) {
+        font-size: 2.5rem;
+      }
+    }
+
+    .price {
+      font-size: 2.2rem;
+      color: $black;
+      padding-bottom: 0.5rem;
+      margin-top: 1.5rem;
+
+      span {
+        font-size: 1.5rem;
+        color: $light-color;
+        text-decoration: line-through;
+      }
+    }
+
+    .stars {
+      font-size: 1.5rem;
+      color: $green;
+    }
+
+    .description {
+      font-size: 2.2rem;
+      color: $black;
+      padding-bottom: 0.5rem;
+      margin-top: 2.5rem;
+      margin-bottom: 3rem;
+
+      span {
+        font-size: 1.5rem;
+        color: $border-hover;
+        text-transform: initial;
+        text-align: left;
+        text-indent: 50px;
+        word-wrap: break-word;
+
+        ::first-letter {
+          font-size: 4rem;
+        }
+      }
+    }
+
+
+  }
+
+  .btn--bookOne {
+    @extend .btn;
+    margin-left: 4rem;
+
+    @media (max-width: 450px) {
+      margin-left: 1.5rem;
+    }
+  }
+
+  .image {
+    flex: 1 1 30rem;
+    background-color: #fff;
+    max-width: 300px;
+    // min-height: 40rem;
+
+    img {
+      width: 100%;
+    }
+  }
+}
